@@ -1466,6 +1466,14 @@ body {
     position: relative;
 }
 
+/* Mobile-friendly crop container */
+@media (max-width: 768px) {
+    .crop-container {
+        max-height: 50vh; /* Slightly smaller on mobile for better usability */
+        border-radius: 0.75rem;
+    }
+}
+
 #cropCanvas {
     max-height: 60vh;
     display: block;
@@ -1477,6 +1485,15 @@ body {
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
     cursor: move;
     overflow: hidden;
+    user-select: none; /* Prevent text selection during drag */
+}
+
+/* Mobile-friendly crop box */
+@media (max-width: 768px) {
+    .crop-box {
+        border-width: 3px;
+        border-color: #60a5fa; /* Slightly lighter blue for better visibility */
+    }
 }
 
 .crop-handle {
@@ -1486,6 +1503,16 @@ body {
     background: white;
     border: 2px solid #3b82f6;
     border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+/* Mobile-friendly crop handles */
+@media (max-width: 768px) {
+    .crop-handle {
+        width: 20px;
+        height: 20px;
+        border-width: 3px;
+    }
 }
 
 .crop-handle-nw {
@@ -1517,6 +1544,26 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
+}
+
+/* Ensure modal buttons work properly on mobile */
+.modal-actions .btn {
+    touch-action: manipulation; /* Allow touch events on buttons */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+}
+
+/* Mobile-friendly modal */
+@media (max-width: 768px) {
+    .modal-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .modal-actions .btn {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+    }
 }
 
 /* ==================== */

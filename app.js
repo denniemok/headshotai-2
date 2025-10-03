@@ -464,7 +464,7 @@ function updateCropBox() {
 
 /**
  * Initialize crop box dragging functionality
- * Handles mouse events for moving and resizing the crop area
+ * Handles mouse and touch events for moving and resizing the crop area
  */
 function initCropBoxDrag() {
     let isDragging = false;
@@ -478,9 +478,9 @@ function initCropBoxDrag() {
     let startBoxHeight = 0;
     
     /**
-     * Get mouse position relative to canvas
+     * Get mouse/touch position relative to canvas
      */
-    function getCanvasMousePosition(clientX, clientY) {
+    function getCanvasPosition(clientX, clientY) {
         const rect = cropCanvas.getBoundingClientRect();
         return {
             x: clientX - rect.left,
@@ -488,8 +488,10 @@ function initCropBoxDrag() {
         };
     }
     
-    // Handle crop box dragging
-    cropBox.addEventListener('mousedown', function(e) {
+    /**
+     * Handle start of interaction (mouse down or touch start)
+     */
+    function handleStart(e, clientX, clientY) {
         if (e.target.classList.contains('crop-handle')) {
             isResizing = true;
             resizeHandle = e.target;
@@ -497,21 +499,24 @@ function initCropBoxDrag() {
             isDragging = true;
         }
         
-        const mousePos = getCanvasMousePosition(e.clientX, e.clientY);
-        startMouseX = mousePos.x;
-        startMouseY = mousePos.y;
+        const pos = getCanvasPosition(clientX, clientY);
+        startMouseX = pos.x;
+        startMouseY = pos.y;
         startBoxX = state.cropData.startX;
         startBoxY = state.cropData.startY;
         startBoxWidth = state.cropData.width;
         startBoxHeight = state.cropData.height;
         e.preventDefault();
-    });
+    }
     
-    document.addEventListener('mousemove', function(e) {
+    /**
+     * Handle movement (mouse move or touch move)
+     */
+    function handleMove(e, clientX, clientY) {
         if (isDragging) {
-            const mousePos = getCanvasMousePosition(e.clientX, e.clientY);
-            const dx = mousePos.x - startMouseX;
-            const dy = mousePos.y - startMouseY;
+            const pos = getCanvasPosition(clientX, clientY);
+            const dx = pos.x - startMouseX;
+            const dy = pos.y - startMouseY;
             
             // Update position with bounds checking
             state.cropData.startX = Math.max(0, Math.min(startBoxX + dx, cropCanvas.width - state.cropData.width));
@@ -519,9 +524,9 @@ function initCropBoxDrag() {
             
             updateCropBox();
         } else if (isResizing && resizeHandle) {
-            const mousePos = getCanvasMousePosition(e.clientX, e.clientY);
-            const dx = mousePos.x - startMouseX;
-            const dy = mousePos.y - startMouseY;
+            const pos = getCanvasPosition(clientX, clientY);
+            const dx = pos.x - startMouseX;
+            const dy = pos.y - startMouseY;
             
             // Determine which handle is being dragged
             const handleClass = resizeHandle.className;
@@ -569,13 +574,54 @@ function initCropBoxDrag() {
             
             updateCropBox();
         }
-    });
+    }
     
-    document.addEventListener('mouseup', function() {
+    /**
+     * Handle end of interaction (mouse up or touch end)
+     */
+    function handleEnd() {
         isDragging = false;
         isResizing = false;
         resizeHandle = null;
+    }
+    
+    // Mouse events
+    cropBox.addEventListener('mousedown', function(e) {
+        handleStart(e, e.clientX, e.clientY);
     });
+    
+    document.addEventListener('mousemove', function(e) {
+        handleMove(e, e.clientX, e.clientY);
+    });
+    
+    document.addEventListener('mouseup', function() {
+        handleEnd();
+    });
+    
+    // Touch events for mobile devices
+    cropBox.addEventListener('touchstart', function(e) {
+        // Only prevent default if we're actually starting a drag/resize operation
+        const touch = e.touches[0];
+        handleStart(e, touch.clientX, touch.clientY);
+        e.preventDefault(); // Prevent default touch behaviors only after we've started
+    }, { passive: false });
+    
+    document.addEventListener('touchmove', function(e) {
+        // Only prevent default if we're actively dragging/resizing
+        if (isDragging || isResizing) {
+            e.preventDefault(); // Prevent scrolling during touch
+            const touch = e.touches[0];
+            handleMove(e, touch.clientX, touch.clientY);
+        }
+    }, { passive: false });
+    
+    document.addEventListener('touchend', function(e) {
+        // Only prevent default if we were actually dragging/resizing
+        if (isDragging || isResizing) {
+            e.preventDefault();
+        }
+        handleEnd();
+    }, { passive: false });
 }
 
 /**
