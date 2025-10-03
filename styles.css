@@ -559,21 +559,21 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.5rem;
-    background: #f8fafc;
-    border: 2px solid #e5e7eb;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
     border-radius: 0.75rem;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 600;
-    color: #1f2937;
+    color: var(--text-primary);
     font-size: 0.875rem;
 }
 
 .prompt-editor-toggle:hover {
-    background: #f1f5f9;
-    border-color: #3b82f6;
+    background: var(--bg-tertiary);
+    border-color: var(--accent-primary);
     transform: translateY(-1px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px -1px var(--shadow-primary);
 }
 
 .prompt-editor-toggle:active {
@@ -593,8 +593,8 @@ body {
 .prompt-editor-content {
     margin-top: 1rem;
     padding: 1.5rem;
-    background: #f8fafc;
-    border: 2px solid #e5e7eb;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
     border-radius: 0.75rem;
     transition: all 0.3s ease;
 }
@@ -629,30 +629,30 @@ body {
 .prompt-textarea {
     width: 100%;
     padding: 1rem;
-    border: 2px solid #d1d5db;
+    border: 2px solid var(--border-secondary);
     border-radius: 0.75rem;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.6;
     font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    background: white;
-    color: #1f2937;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     resize: vertical;
     min-height: 200px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px 0 var(--shadow-secondary);
 }
 
 .prompt-textarea:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 6px -1px var(--shadow-primary);
     transform: translateY(-1px);
 }
 
 .prompt-textarea:hover {
-    border-color: #6b7280;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: var(--text-tertiary);
+    box-shadow: 0 4px 6px -1px var(--shadow-primary);
     transform: translateY(-1px);
 }
 
@@ -667,19 +667,21 @@ body {
     gap: 0.5rem;
     margin-top: 1rem;
     padding: 0.75rem;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-secondary);
     border-radius: 0.5rem;
     font-size: 0.75rem;
-    color: #1e40af;
+    color: var(--text-secondary);
     line-height: 1.5;
     text-align: left;
+    transition: all 0.3s ease;
 }
 
 .prompt-editor-hint svg {
-    color: #3b82f6;
+    color: var(--accent-primary);
     margin-top: 0.125rem;
     flex-shrink: 0;
+    transition: color 0.3s ease;
 }
 
 
