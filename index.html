@@ -27,7 +27,8 @@
             </div>
             
             <p class="subtitle">
-                Transform any photo into a <span class="highlight">professional headshot</span> in seconds with AI-powered enhancement
+                Transform any photo into a <span class="highlight">professional headshot</span> in seconds.<br>
+                Powered by Google's Gemini 2.5 Flash Image Preview API.
             </p>
             
             <!-- API Key Input Section -->
@@ -86,8 +87,10 @@
                                 Type
                             </label>
                             <select id="typeSelect" class="parameter-select">
-                                <option value="professional-headshot">Professional Headshot</option>
-                                <option value="professional-linkedin-style-portrait">Professional LinkedIn-style Portrait</option>
+                                <option value="headshot">Professional Headshot</option>
+                                <option value="linkedin">Professional LinkedIn-style Portrait</option>
+                                <option value="passport">Passport Photo</option>
+                                <option value="casual">Casual Portrait</option>
                             </select>
                         </div>
 
@@ -100,9 +103,10 @@
                                 Use Case
                             </label>
                             <select id="useCaseSelect" class="parameter-select">
-                                <option value="passport">Passport</option>
-                                <option value="public-display">Public Display</option>
-                                <option value="linkedin-profile-picture">LinkedIn Profile Picture</option>
+                                <option value="id-docs">ID Documents (Passport, Driver's License, etc.)</option>
+                                <option value="branding">Personal Branding</option>
+                                <option value="linkedin">LinkedIn Profile Pictures</option>
+                                <option value="casual">Social Media Profile Pictures</option>
                             </select>
                         </div>
 
@@ -115,9 +119,12 @@
                                 Dress Style
                             </label>
                             <select id="dressStyleSelect" class="parameter-select">
-                                <option value="navy-suit">Navy Blue Three-Piece Suit</option>
-                                <option value="navy-dress">Navy Blue Round Neck Dress</option>
-                                <option value="it-casual">IT Professional (Slightly Casual)</option>
+                                <option value="navy-suit">Navy Blue Three-Piece Suit (Lightly Pleated Fabric) + Crisp White Professional Shirt + Windsor Knot Tie</option>
+                                <option value="navy-dress">Navy Blue Round Neck Dress (Lightly Pleated Fabric)</option>
+                                <option value="grey-sweater">Dark Grey Crew-Neck Sweater + Light Blue Collared Shirt</option>
+                                <option value="black-suit">Black Slim-Fit Business Suit</option>
+                                <option value="grey-suit">Grey Minimalist Business Suit with Clean Lines</option>
+                                <option value="casual">Casual Outfit</option>
                             </select>
                         </div>
 
@@ -130,10 +137,12 @@
                                 Background
                             </label>
                             <select id="backgroundSelect" class="parameter-select">
-                                <option value="soft-grey">Soft Grey Background</option>
-                                <option value="smoke-blue">Smoke Blue Background</option>
-                                <option value="modern-office">Modern Office Background</option>
-                                <option value="studio-backdrop">Studio Backdrop Background</option>
+                                <option value="plain-white">Plain White</option>
+                                <option value="soft-grey">Soft Grey</option>
+                                <option value="smoke-blue">Smoke Blue</option>
+                                <option value="modern-office">Modern Office</option>
+                                <option value="studio-backdrop">Studio Backdrop</option>
+                                <option value="study-room">Study Room</option>
                             </select>
                         </div>
 
@@ -164,6 +173,45 @@
                                 <option value="true">Enable</option>
                                 <option value="false">Disable</option>
                             </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Prompt Editor -->
+                    <div class="prompt-editor-section">
+                        <button id="togglePromptEditor" class="prompt-editor-toggle">
+                            <svg class="icon-small" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            <span>Advanced Prompt Editor</span>
+                            <svg id="promptEditorChevron" class="icon-small chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        
+                        <div id="promptEditorContent" class="prompt-editor-content hidden">
+                            <div class="prompt-editor-header">
+                                <label for="promptTextarea" class="prompt-editor-label">
+                                    <svg class="icon-small" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                    Custom AI Prompt
+                                </label>
+                                <div class="prompt-editor-actions">
+                                    <button id="resetPromptBtn" class="btn btn-secondary btn-small">Reset to Default</button>
+                                </div>
+                            </div>
+                            <textarea 
+                                id="promptTextarea" 
+                                class="prompt-textarea" 
+                                placeholder="Enter your custom AI prompt here..."
+                                rows="8"
+                            ></textarea>
+                            <div class="prompt-editor-hint">
+                                <svg class="icon-small" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Changes to dropdowns above will overwrite this custom prompt. You can edit this prompt to fine-tune the AI's behavior.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -315,10 +363,10 @@
             <footer class="footer">
                 <div class="footer-content">
                     <p class="footer-text">
-                        © 2025 HeadshotAI Professional Generator. Made with ♥ for your professional success.
+                        © 2025 HeadshotAI.
                     </p>
                     <p class="footer-author">
-                        Created by <a href="https://www.linkedin.com/in/anandsuraj/" target="_blank" rel="noopener noreferrer">Suraj Anand</a>
+                        Created by <a href="https://www.linkedin.com/in/denniemok/" target="_blank" rel="noopener noreferrer">Dennie Mok</a>
                     </p>
                 </div>
             </footer>

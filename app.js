@@ -13,13 +13,14 @@ const state = {
     croppedImageData: null,        // Cropped image data (base64)
     croppedImageMimeType: null,    // MIME type of cropped image
     parameters: {
-        type: 'professional-headshot',
-        useCase: 'passport',
-        dressStyle: 'navy-suit',
+        type: 'linkedin',
+        useCase: 'linkedin',
+        dressStyle: 'grey-sweater',
         background: 'soft-grey',
         retouching: 'false',
         headTilting: 'true'
     },
+    customPrompt: null,            // Custom prompt from textarea
     generatedImage: null,          // Single generated base64 image
     isLoading: false,              // Loading state
     currentSlide: 0,               // Current slide index (0 = upload, 1 = results)
@@ -80,6 +81,12 @@ const cropBox = document.getElementById('cropBox');
 const confirmCropBtn = document.getElementById('confirmCropBtn');
 const cancelCropBtn = document.getElementById('cancelCropBtn');
 
+// Prompt editor elements
+const togglePromptEditor = document.getElementById('togglePromptEditor');
+const promptEditorContent = document.getElementById('promptEditorContent');
+const promptTextarea = document.getElementById('promptTextarea');
+const resetPromptBtn = document.getElementById('resetPromptBtn');
+
 // Slide navigation elements
 const indicators = document.querySelectorAll('.indicator');
 const slides = document.querySelectorAll('.slide');
@@ -124,6 +131,11 @@ indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => goToSlide(index));
 });
 
+// Prompt editor events
+togglePromptEditor.addEventListener('click', togglePromptEditorVisibility);
+resetPromptBtn.addEventListener('click', resetPromptToDefault);
+promptTextarea.addEventListener('input', handlePromptTextareaChange);
+
 // ==================== API Key Functions ====================
 
 /**
@@ -152,6 +164,10 @@ function handleParameterChange(e) {
     const parameterName = e.target.id.replace('Select', '');
     state.parameters[parameterName] = e.target.value;
     console.log('📝 Parameter updated:', parameterName, '=', e.target.value);
+    
+    // Update prompt textarea when dropdowns change
+    updatePromptFromParameters();
+    
     updateGenerateButton();
 }
 
@@ -257,6 +273,49 @@ async function handleTestConnection() {
         // Reset button state
         testConnectionBtn.disabled = false;
     }
+}
+
+// ==================== Prompt Editor Functions ====================
+
+/**
+ * Toggle prompt editor visibility
+ */
+function togglePromptEditorVisibility() {
+    const isHidden = promptEditorContent.classList.contains('hidden');
+    
+    if (isHidden) {
+        promptEditorContent.classList.remove('hidden');
+        togglePromptEditor.classList.add('expanded');
+    } else {
+        promptEditorContent.classList.add('hidden');
+        togglePromptEditor.classList.remove('expanded');
+    }
+}
+
+/**
+ * Reset prompt to default based on current parameters
+ */
+function resetPromptToDefault() {
+    updatePromptFromParameters();
+    console.log('🔄 Prompt reset to default');
+}
+
+/**
+ * Update prompt textarea from current parameters
+ */
+function updatePromptFromParameters() {
+    const prompt = generatePrompt(state.parameters);
+    promptTextarea.value = prompt;
+    console.log('📝 Prompt updated from parameters');
+}
+
+/**
+ * Handle prompt textarea changes
+ */
+function handlePromptTextareaChange(e) {
+    // Store custom prompt in state for later use
+    state.customPrompt = e.target.value;
+    console.log('📝 Custom prompt updated');
 }
 
 // ==================== Upload Functions ====================
@@ -706,27 +765,35 @@ async function handleGenerate() {
  * Parameter mappings
  */
 const typeMapping = {
-    'professional-headshot': 'Transform this photo into a professional headshot',
-    'professional-linkedin-style-portrait': 'Transform this photo into a professional LinkedIn-style portrait'
+    'headshot': 'Transform this photo into a professional headshot.',
+    'linkedin': 'Transform this photo into a professional LinkedIn-stype portrait.',
+    'passport': 'Transform this photo into a Passport photo.',
+    'casual': 'Transform this photo into a casual portrait.'
 };
 
 const useCaseMapping = {
-    'passport': 'The overall style should be polished, modern, and perfectly suited for passport photos',
-    'public-display': 'The overall style should be polished, modern, and perfectly suited for public display',
-    'linkedin-profile-picture': 'The overall style should be polished, modern, and perfectly suited for LinkedIn profile pictures'
+    'id-docs': 'The overall style should be polished, modern, and perfectly suited for ID documents (Passport, Driver License, etc.).',
+    'branding': 'The overall style should be polished, modern, and perfectly suited for personal branding.',
+    'linkedin': 'The overall style should be polished, modern, and perfectly suited for LinkedIn profile pictures.',
+    'casual': 'The overall style should be casual, relaxed, and perfectly suited for social media profile pictures.'
 };
 
 const dressStyleMapping = {
     'navy-suit': 'Dress the person in a navy-blue three-piece suit made of lightly pleated fabric, paired with a crisp white professional shirt and a neatly tied Windsor knot tie.',
-    'navy-dress': 'Dress the person in a sleeveless navy blue round neck dress in the fabric that is a little bit pleated.',
-    'it-casual': 'Dress the person in a dark grey crew-neck sweater over a light blue collared shirt.'
+    'navy-dress': 'Dress the person in a sleeveless navy blue round neck dress made of lightly pleated fabric.',
+    'grey-sweater': 'Dress the person in a dark grey crew-neck sweater over a light blue collared shirt.',
+    'black-suit': 'Dress the person in a black, modern, slim-fit business suit.',
+    'grey-suit': 'Dress the person in a grey, minimalist, elegant business suit with clean lines.',
+    'casual': 'Dress the person in a casual, relaxed outfit.'
 };
 
 const backgroundMapping = {
+    'plain-white': 'Use a plain white background.',
     'soft-grey': 'Use a soft grey background.',
     'smoke-blue': 'Use a smoke blue background.',
-    'modern-office': 'Use a subtly blurred, neutral, out-of-focus professional modern office background.',
-    'studio-backdrop': 'Use a subtly blurred, neutral, out-of-focus professional modern studio backdrop background.'
+    'modern-office': 'Use a subtly blurred, neutral, out-of-focus background set in a modern office.',
+    'studio-backdrop': 'Use a subtly blurred, neutral, out-of-focus background set in a modern studio backdrop.',
+    'study-room': 'Use a subtly blurred, neutral, out-of-focus background set in a study room with bookshelves.'
 };
 
 const retouchingMapping = {
@@ -745,7 +812,7 @@ const headTiltingMapping = {
 function generatePrompt(parameters) {
     const { type, useCase, dressStyle, background, retouching, headTilting } = parameters;
     
-    let prompt = `${typeMapping[type]}. ${useCaseMapping[useCase]}. Perform the following edits:\n`;
+    let prompt = `${typeMapping[type]} ${useCaseMapping[useCase]} Perform the following edits:\n`;
     
     // Retouching section
     prompt += `1. **Retouching**: ${retouchingMapping[retouching]}\n`;
@@ -757,7 +824,7 @@ function generatePrompt(parameters) {
     prompt += `3. **Background**: ${backgroundMapping[background]} Create a professional depth-of-field effect and ensure the person is the only subject in focus.\n`;
     
     // Head tilting section
-    prompt += `4. **Head**: ${headTiltingMapping[headTilting]}\n`;
+    prompt += `4. **Head Tilting**: ${headTiltingMapping[headTilting]}\n`;
     
     prompt += `The final output must be only the modified image.`;
     
@@ -770,8 +837,10 @@ function generatePrompt(parameters) {
 async function generateSingleImage(base64ImageData, mimeType, apiKey, parameters) {
     console.log('🎯 Generating single image with parameters:', { parameters, mimeType });
     
-    const prompt = generatePrompt(parameters);
-    console.log('📝 Generated prompt:', prompt);
+    // Use custom prompt if available, otherwise generate from parameters
+    const prompt = state.customPrompt || generatePrompt(parameters);
+    console.log('📝 Using prompt:', state.customPrompt ? 'Custom prompt' : 'Generated prompt');
+    console.log('📝 Prompt content:', prompt);
     
     const requestBody = {
         contents: [{
@@ -1013,6 +1082,7 @@ function handleReset() {
     state.croppedImageData = null;
     state.croppedImageMimeType = null;
     state.generatedImage = null;
+    state.customPrompt = null;
     state.isLoading = false;
     state.currentSlide = 0;
     
@@ -1045,6 +1115,9 @@ function handleReset() {
     // Reset results
     hideAllResultStates();
     resultPlaceholder.classList.remove('hidden');
+    
+    // Reset prompt editor
+    updatePromptFromParameters();
     
     // Reset slide to first page
     goToSlide(0);
@@ -1083,6 +1156,9 @@ function init() {
     backgroundSelect.value = state.parameters.background;
     retouchingSelect.value = state.parameters.retouching;
     headTiltingSelect.value = state.parameters.headTilting;
+    
+    // Initialize prompt editor with default prompt
+    updatePromptFromParameters();
     
     // Initial UI state
     updateGenerateButton();
