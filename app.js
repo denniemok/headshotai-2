@@ -1065,11 +1065,11 @@ function handleReset() {
     
     // Reset parameters to defaults
     state.parameters = {
-        type: 'professional-headshot',
-        useCase: 'passport',
-        dressStyle: 'navy-suit',
+        type: 'linkedin',
+        useCase: 'linkedin',
+        dressStyle: 'grey-sweater',
         background: 'soft-grey',
-        retouching: 'true',
+        retouching: 'false',
         headTilting: 'true'
     };
     
