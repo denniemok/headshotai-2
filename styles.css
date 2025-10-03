@@ -334,12 +334,17 @@ body {
     border: none;
     cursor: pointer;
     color: var(--text-tertiary);
-    transition: color 0.2s;
+    transition: color 0.3s ease;
     z-index: 10;
 }
 
 .toggle-visibility-btn:hover {
     color: var(--accent-primary);
+}
+
+.toggle-visibility-btn svg {
+    color: inherit;
+    transition: color 0.3s ease;
 }
 
 .api-key-hint {
@@ -1492,7 +1497,7 @@ body {
 .icon-tiny {
     width: 1rem;
     height: 1rem;
-    color: white;
+    color: inherit;
 }
 
 .icon-small {

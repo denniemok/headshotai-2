@@ -572,9 +572,9 @@ function initCropBoxDrag() {
             const dy = pos.y - startMouseY;
             
             // Update position with bounds checking
-            // Add extra margin for mobile to account for handle size
+            // Minimal margin to allow reaching edges while keeping handles visible
             const isMobile = window.innerWidth <= 768;
-            const margin = isMobile ? 8 : 6; // Handle size + some padding
+            const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
             state.cropData.startX = Math.max(margin, Math.min(startBoxX + dx, cropCanvas.width - state.cropData.width - margin));
             state.cropData.startY = Math.max(margin, Math.min(startBoxY + dy, cropCanvas.height - state.cropData.height - margin));
             
@@ -591,8 +591,8 @@ function initCropBoxDrag() {
                 // Southeast - increase size
                 const delta = Math.max(dx, dy); // Use max to maintain square aspect
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 80 : 50; // Larger minimum size on mobile
-                const margin = isMobile ? 8 : 6;
+                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
+                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
                 const newSize = Math.max(minSize, startBoxWidth + delta);
                 const maxSize = Math.min(cropCanvas.width - startBoxX - margin, cropCanvas.height - startBoxY - margin);
                 state.cropData.width = Math.min(newSize, maxSize);
@@ -601,8 +601,8 @@ function initCropBoxDrag() {
                 // Northwest - decrease size and move position
                 const delta = Math.min(dx, dy);
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 80 : 50;
-                const margin = isMobile ? 8 : 6;
+                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
+                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
                 const newSize = Math.max(minSize, startBoxWidth - delta);
                 state.cropData.width = newSize;
                 state.cropData.height = newSize;
@@ -614,8 +614,8 @@ function initCropBoxDrag() {
                 const deltaY = -dy;
                 const delta = Math.max(deltaX, deltaY);
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 80 : 50;
-                const margin = isMobile ? 8 : 6;
+                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
+                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
                 const newSize = Math.max(minSize, startBoxWidth + delta);
                 const maxSizeX = cropCanvas.width - startBoxX - margin;
                 const maxSizeY = startBoxY + startBoxHeight - margin;
@@ -629,8 +629,8 @@ function initCropBoxDrag() {
                 const deltaY = dy;
                 const delta = Math.max(deltaX, deltaY);
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 80 : 50;
-                const margin = isMobile ? 8 : 6;
+                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
+                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
                 const newSize = Math.max(minSize, startBoxWidth + delta);
                 const maxSizeX = startBoxX + startBoxWidth - margin;
                 const maxSizeY = cropCanvas.height - startBoxY - margin;
