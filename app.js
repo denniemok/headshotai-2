@@ -838,7 +838,8 @@ function generatePrompt(parameters) {
     prompt += `2. **Attire**: ${dressStyleMapping[dressStyle]}\n`;
     
     // Background section
-    prompt += `3. **Background**: ${backgroundMapping[background]} Create a professional depth-of-field effect and ensure the person is the only subject in focus.\n`;
+    prompt += `3. **Background**: ${backgroundMapping[background]}\n`;
+    // Deprecated: Create a professional depth-of-field effect and ensure the person is the only subject in focus.
     
     // Head tilting section
     prompt += `4. **Head Tilting**: ${headTiltingMapping[headTilting]}\n`;
