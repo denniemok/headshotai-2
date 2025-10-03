@@ -89,6 +89,11 @@ const cropBox = document.getElementById('cropBox');
 const confirmCropBtn = document.getElementById('confirmCropBtn');
 const cancelCropBtn = document.getElementById('cancelCropBtn');
 
+// Dark mode elements
+const darkModeToggle = document.getElementById('darkModeToggle');
+const sunIcon = document.getElementById('sunIcon');
+const moonIcon = document.getElementById('moonIcon');
+
 // Prompt editor elements
 const togglePromptEditor = document.getElementById('togglePromptEditor');
 const promptEditorContent = document.getElementById('promptEditorContent');
@@ -143,6 +148,52 @@ indicators.forEach((indicator, index) => {
 togglePromptEditor.addEventListener('click', togglePromptEditorVisibility);
 resetPromptBtn.addEventListener('click', resetPromptToDefault);
 promptTextarea.addEventListener('input', handlePromptTextareaChange);
+
+// Dark mode events
+darkModeToggle.addEventListener('click', toggleDarkMode);
+
+// ==================== Dark Mode Functions ====================
+
+/**
+ * Toggle dark mode on/off
+ * Saves preference to localStorage and updates UI
+ */
+function toggleDarkMode() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    
+    if (isDark) {
+        // Switch to light mode
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    } else {
+        // Switch to dark mode
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    }
+}
+
+/**
+ * Initialize dark mode from localStorage
+ * Sets the initial theme based on saved preference or system preference
+ */
+function initDarkMode() {
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+    }
+}
 
 // ==================== API Key Functions ====================
 
@@ -1176,6 +1227,9 @@ function handleReset() {
  * Initialize the application
  */
 function init() {
+    // Initialize dark mode
+    initDarkMode();
+    
     // Load API key from localStorage if available
     const savedApiKey = localStorage.getItem('gemini_api_key');
     if (savedApiKey) {
