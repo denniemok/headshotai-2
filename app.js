@@ -952,36 +952,13 @@ function displayResult(base64Image) {
     const imageUrl = `data:image/png;base64,${base64Image}`;
     
     const item = document.createElement('div');
-    item.className = 'result-item';
+    item.className = 'result-item result-item-single';
     
     const img = document.createElement('img');
     img.src = imageUrl;
     img.alt = 'Professional Headshot';
     
-    const overlay = document.createElement('div');
-    overlay.className = 'result-item-overlay';
-    
-    const actions = document.createElement('div');
-    actions.className = 'result-item-actions';
-    
-    const label = document.createElement('div');
-    label.className = 'style-label';
-    const { type, dressStyle, background } = state.parameters;
-    const dressStyleName = dressStyleSelect.options[dressStyleSelect.selectedIndex].text;
-    const backgroundName = backgroundSelect.options[backgroundSelect.selectedIndex].text;
-    label.textContent = `${type} - ${dressStyleName}`;
-    
-    const downloadBtn = document.createElement('button');
-    downloadBtn.className = 'download-btn';
-    downloadBtn.textContent = 'Save';
-    downloadBtn.onclick = () => downloadImage(imageUrl, 0);
-    
-    actions.appendChild(label);
-    actions.appendChild(downloadBtn);
-    overlay.appendChild(actions);
-    
     item.appendChild(img);
-    item.appendChild(overlay);
     resultGrid.appendChild(item);
     
     updateResetButton();

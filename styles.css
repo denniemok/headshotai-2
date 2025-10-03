@@ -1246,6 +1246,21 @@ body {
     }
 }
 
+/* Single result item styling */
+.result-item-single {
+    grid-column: 1 / -1;
+    max-width: 500px;
+    margin: 0 auto;
+    aspect-ratio: 1;
+}
+
+.result-item-single img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0.75rem;
+}
+
 .result-item {
     position: relative;
     aspect-ratio: 1;
