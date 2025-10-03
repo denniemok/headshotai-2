@@ -1591,6 +1591,7 @@ body {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     max-width: 42rem;
     width: 100%;
+    min-height: 500px; /* Ensure minimum height for cropper */
 }
 
 .modal-title {
@@ -1607,6 +1608,7 @@ body {
 
 .crop-container {
     max-height: 60vh;
+    min-height: 300px; /* Ensure minimum height for cropping */
     overflow: auto;
     display: flex;
     justify-content: center;
@@ -1619,13 +1621,44 @@ body {
 @media (max-width: 768px) {
     .crop-container {
         max-height: 50vh; /* Slightly smaller on mobile for better usability */
+        min-height: 250px; /* Minimum height for mobile cropping */
         border-radius: 0.75rem;
+    }
+}
+
+/* Small phone optimizations */
+@media (max-width: 480px) {
+    .crop-container {
+        max-height: 40vh; /* Even smaller on small phones */
+        min-height: 200px; /* Minimum height for small phones */
+        border-radius: 0.5rem;
+    }
+    
+    .modal-content {
+        padding: 1rem; /* Reduce padding on small screens */
+        margin: 0.5rem;
+        min-height: 400px; /* Minimum height for small phones */
+    }
+    
+    .modal-title {
+        font-size: 1.25rem; /* Smaller title on small screens */
+    }
+    
+    .modal-subtitle {
+        font-size: 0.875rem; /* Smaller subtitle on small screens */
     }
 }
 
 #cropCanvas {
     max-height: 60vh;
     display: block;
+}
+
+/* Small phone canvas sizing */
+@media (max-width: 480px) {
+    #cropCanvas {
+        max-height: 40vh; /* Match the container height */
+    }
 }
 
 .crop-box {

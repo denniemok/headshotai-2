@@ -461,21 +461,33 @@ function processImageFile(file) {
 function openCropper(img) {
     cropperModal.classList.remove('hidden');
     
-    // Set canvas size
-    const maxWidth = 600;
-    const maxHeight = window.innerHeight * 0.6;
+    // Set canvas size with better mobile handling
+    const isMobile = window.innerWidth <= 768;
+    const isSmallPhone = window.innerWidth <= 480;
+    
+    // Calculate available space more accurately
+    const modalPadding = 32; // 1.5rem * 2 (top + bottom)
+    const modalHeader = 120; // Approximate height of modal header
+    const modalActions = 80; // Approximate height of modal actions
+    const availableHeight = window.innerHeight - modalPadding - modalHeader - modalActions;
+    
+    // Set maximum dimensions based on screen size
+    const maxWidth = isSmallPhone ? Math.min(400, window.innerWidth - 32) : 
+                     isMobile ? Math.min(500, window.innerWidth - 32) : 600;
+    const maxHeight = isSmallPhone ? Math.min(300, availableHeight) :
+                      isMobile ? Math.min(400, availableHeight) : 
+                      Math.min(600, availableHeight);
+    
     let width = img.width;
     let height = img.height;
     
-    // Scale image to fit
-    if (width > maxWidth) {
-        height = (maxWidth / width) * height;
-        width = maxWidth;
-    }
-    if (height > maxHeight) {
-        width = (maxHeight / height) * width;
-        height = maxHeight;
-    }
+    // Scale image to fit within constraints
+    const scaleX = maxWidth / width;
+    const scaleY = maxHeight / height;
+    const scale = Math.min(scaleX, scaleY, 1); // Don't scale up, only down
+    
+    width = width * scale;
+    height = height * scale;
     
     cropCanvas.width = width;
     cropCanvas.height = height;
@@ -486,8 +498,7 @@ function openCropper(img) {
     
     // Initialize crop box (90% of canvas, centered, square aspect ratio)
     // Use smaller size on mobile to ensure handles stay within bounds
-    const isMobile = window.innerWidth <= 768;
-    const cropSize = Math.min(width, height) * (isMobile ? 0.7 : 0.9);
+    const cropSize = Math.min(width, height) * (isSmallPhone ? 0.6 : isMobile ? 0.7 : 0.9);
     state.cropData.width = cropSize;
     state.cropData.height = cropSize;
     state.cropData.startX = (width - cropSize) / 2;
