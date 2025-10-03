@@ -13,15 +13,16 @@ const state = {
     croppedImageData: null,        // Cropped image data (base64)
     croppedImageMimeType: null,    // MIME type of cropped image
     parameters: {
-        type: 'professional headshot',
+        type: 'professional-headshot',
         useCase: 'passport',
         dressStyle: 'navy-suit',
         background: 'soft-grey',
-        retouching: 'true',
+        retouching: 'false',
         headTilting: 'true'
     },
     generatedImage: null,          // Single generated base64 image
     isLoading: false,              // Loading state
+    currentSlide: 0,               // Current slide index (0 = upload, 1 = results)
     cropData: {
         image: null,               // Image object for cropping
         startX: 0,                 // Crop start X position
@@ -79,6 +80,10 @@ const cropBox = document.getElementById('cropBox');
 const confirmCropBtn = document.getElementById('confirmCropBtn');
 const cancelCropBtn = document.getElementById('cancelCropBtn');
 
+// Slide navigation elements
+const indicators = document.querySelectorAll('.indicator');
+const slides = document.querySelectorAll('.slide');
+
 // ==================== Event Listeners ====================
 
 // API Key visibility toggle
@@ -113,6 +118,11 @@ downloadAllBtn.addEventListener('click', handleDownloadAll);
 // Cropper events
 confirmCropBtn.addEventListener('click', handleConfirmCrop);
 cancelCropBtn.addEventListener('click', handleCancelCrop);
+
+// Indicator events
+indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => goToSlide(index));
+});
 
 // ==================== API Key Functions ====================
 
@@ -561,6 +571,63 @@ function handleCancelCrop() {
     state.cropData.image = null;
 }
 
+// ==================== Slide Functions ====================
+
+/**
+ * Go to a specific slide
+ */
+function goToSlide(slideIndex) {
+    if (slideIndex < 0 || slideIndex >= slides.length) return;
+    
+    const currentSlideElement = slides[state.currentSlide];
+    const targetSlideElement = slides[slideIndex];
+    
+    // Add transition classes
+    if (slideIndex > state.currentSlide) {
+        // Moving forward
+        currentSlideElement.classList.add('slide-out-left');
+        targetSlideElement.classList.add('slide-in-right');
+    } else {
+        // Moving backward
+        currentSlideElement.classList.add('slide-out-right');
+        targetSlideElement.classList.add('slide-in-left');
+    }
+    
+    // Update state
+    state.currentSlide = slideIndex;
+    
+    // Update slide visibility
+    setTimeout(() => {
+        // Remove all active classes
+        slides.forEach(slide => {
+            slide.classList.remove('active', 'slide-in-right', 'slide-in-left', 'slide-out-right', 'slide-out-left');
+        });
+        
+        // Add active class to current slide
+        targetSlideElement.classList.add('active');
+        
+        // Update navigation buttons
+        updateNavigationButtons();
+    }, 250);
+}
+
+/**
+ * Update navigation indicators
+ */
+function updateNavigationButtons() {
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === state.currentSlide);
+    });
+}
+
+/**
+ * Auto-slide to results page when generation starts
+ */
+function slideToResults() {
+    goToSlide(1);
+}
+
 // ==================== Generation Functions ====================
 
 /**
@@ -596,6 +663,9 @@ async function handleGenerate() {
     generateBtn.disabled = true;
     resetBtn.disabled = true;
     updateTestConnectionButton();
+    
+    // Auto-slide to results page
+    slideToResults();
     
     try {
         // Generate single professional image using Gemini API
@@ -635,10 +705,21 @@ async function handleGenerate() {
 /**
  * Parameter mappings
  */
+const typeMapping = {
+    'professional-headshot': 'Transform this photo into a professional headshot',
+    'professional-linkedin-style-portrait': 'Transform this photo into a professional LinkedIn-style portrait'
+};
+
+const useCaseMapping = {
+    'passport': 'The overall style should be polished, modern, and perfectly suited for passport photos',
+    'public-display': 'The overall style should be polished, modern, and perfectly suited for public display',
+    'linkedin-profile-picture': 'The overall style should be polished, modern, and perfectly suited for LinkedIn profile pictures'
+};
+
 const dressStyleMapping = {
     'navy-suit': 'Dress the person in a navy-blue three-piece suit made of lightly pleated fabric, paired with a crisp white professional shirt and a neatly tied Windsor knot tie.',
     'navy-dress': 'Dress the person in a sleeveless navy blue round neck dress in the fabric that is a little bit pleated.',
-    'it-casual': 'Dress the person like an IT guy, slightly casual, not too formal.'
+    'it-casual': 'Dress the person in a dark grey crew-neck sweater over a light blue collared shirt.'
 };
 
 const backgroundMapping = {
@@ -648,18 +729,26 @@ const backgroundMapping = {
     'studio-backdrop': 'Use a subtly blurred, neutral, out-of-focus professional modern studio backdrop background.'
 };
 
+const retouchingMapping = {
+    'true': 'Perform a subtle beauty retouch, with a specific focus on the eye area. It is essential to completely remove any dark circles, eye bags, and signs of tiredness from under the eyes. Brighten the eyes slightly for a more awake and alert appearance, while ensuring the result looks natural and professional. Also enhance the overall lighting and sharpness for a polished, high-quality result. It is crucial to preserve the person\'s natural facial features, hair, and expression.',
+    'false': 'Skip retouching and maintain the original facial features as they are.'
+};
+
+const headTiltingMapping = {
+    'true': 'Tilt the head slightly for a natural, relaxed look that avoids stiffness.',
+    'false': 'Keep the head straight and upright for a formal, professional appearance.'
+};
+
 /**
  * Generate the AI prompt for image transformation
  */
 function generatePrompt(parameters) {
     const { type, useCase, dressStyle, background, retouching, headTilting } = parameters;
     
-    let prompt = `Transform this photo into a ${type}. The overall style should be polished, modern, and perfectly suited for ${useCase}. Perform the following edits:\n`;
+    let prompt = `${typeMapping[type]}. ${useCaseMapping[useCase]}. Perform the following edits:\n`;
     
     // Retouching section
-    if (retouching === 'true') {
-        prompt += `1. **Retouching**: Perform a subtle beauty retouch, with a specific focus on the eye area. It is essential to completely remove any dark circles, eye bags, and signs of tiredness from under the eyes. Brighten the eyes slightly for a more awake and alert appearance, while ensuring the result looks natural and professional. Also enhance the overall lighting and sharpness for a polished, high-quality result. It is crucial to preserve the person's natural facial features, hair, and expression.\n`;
-    }
+    prompt += `1. **Retouching**: ${retouchingMapping[retouching]}\n`;
     
     // Attire section
     prompt += `2. **Attire**: ${dressStyleMapping[dressStyle]}\n`;
@@ -668,9 +757,7 @@ function generatePrompt(parameters) {
     prompt += `3. **Background**: ${backgroundMapping[background]} Create a professional depth-of-field effect and ensure the person is the only subject in focus.\n`;
     
     // Head tilting section
-    if (headTilting === 'true') {
-        prompt += `4. **Head**: Tilt the head slightly for a natural, relaxed look that avoids stiffness.\n`;
-    }
+    prompt += `4. **Head**: ${headTiltingMapping[headTilting]}\n`;
     
     prompt += `The final output must be only the modified image.`;
     
@@ -927,10 +1014,11 @@ function handleReset() {
     state.croppedImageMimeType = null;
     state.generatedImage = null;
     state.isLoading = false;
+    state.currentSlide = 0;
     
     // Reset parameters to defaults
     state.parameters = {
-        type: 'professional headshot',
+        type: 'professional-headshot',
         useCase: 'passport',
         dressStyle: 'navy-suit',
         background: 'soft-grey',
@@ -957,6 +1045,9 @@ function handleReset() {
     // Reset results
     hideAllResultStates();
     resultPlaceholder.classList.remove('hidden');
+    
+    // Reset slide to first page
+    goToSlide(0);
     
     // Update UI
     updateGenerateButton();
@@ -998,6 +1089,7 @@ function init() {
     updateTestConnectionButton();
     updateResetButton();
     updateResultPlaceholder();
+    updateNavigationButtons();
 }
 
 // Start the application when DOM is ready
