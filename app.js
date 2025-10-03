@@ -119,12 +119,7 @@ headTiltingSelect.addEventListener('change', handleParameterChange);
 testConnectionBtn.addEventListener('click', handleTestConnection);
 
 // Upload area events
-uploadArea.addEventListener('click', () => {
-    // Only trigger file input when on the upload slide (slide 0)
-    if (state.currentSlide === 0) {
-        fileInput.click();
-    }
-});
+uploadArea.addEventListener('click', () => fileInput.click());
 uploadArea.addEventListener('dragover', handleDragOver);
 uploadArea.addEventListener('dragleave', handleDragLeave);
 uploadArea.addEventListener('drop', handleDrop);
