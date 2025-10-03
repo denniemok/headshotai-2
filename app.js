@@ -3,6 +3,14 @@
  * 
  * This application uses Google's Gemini AI API to transform photos into
  * professional headshots. It generates 1 image based on the selected style.
+ * 
+ * Features:
+ * - Image upload with drag & drop support
+ * - Interactive image cropping
+ * - Customizable AI prompts
+ * - Multiple style options (professional, casual, passport, etc.)
+ * - Real-time API connection testing
+ * - Responsive design with slide navigation
  */
 
 // ==================== Application State ====================
@@ -140,6 +148,7 @@ promptTextarea.addEventListener('input', handlePromptTextareaChange);
 
 /**
  * Toggle API key input visibility between password and text
+ * Provides user-friendly way to view/hide the API key while typing
  */
 function toggleApiKeyVisibility() {
     const isPassword = apiKeyInput.type === 'password';
@@ -150,6 +159,7 @@ function toggleApiKeyVisibility() {
 
 /**
  * Handle API key input changes
+ * Updates application state and enables/disables relevant buttons
  */
 function handleApiKeyInput(e) {
     state.apiKey = e.target.value.trim();
@@ -158,7 +168,8 @@ function handleApiKeyInput(e) {
 }
 
 /**
- * Handle parameter changes
+ * Handle parameter changes from dropdown selections
+ * Updates the AI prompt when user changes style parameters
  */
 function handleParameterChange(e) {
     const parameterName = e.target.id.replace('Select', '');
@@ -172,7 +183,8 @@ function handleParameterChange(e) {
 }
 
 /**
- * Test API connection
+ * Test API connection with a simple text generation request
+ * Validates the API key before allowing image generation
  */
 async function handleTestConnection() {
     if (!state.apiKey) {
@@ -393,6 +405,7 @@ function processImageFile(file) {
 
 /**
  * Open the image cropper modal
+ * Sets up the canvas and initializes the crop box for user interaction
  */
 function openCropper(img) {
     cropperModal.classList.remove('hidden');
@@ -432,7 +445,8 @@ function openCropper(img) {
 }
 
 /**
- * Update crop box position and size
+ * Update crop box position and size on the canvas
+ * Calculates relative positioning for the draggable crop area
  */
 function updateCropBox() {
     // Get canvas position within container
@@ -450,6 +464,7 @@ function updateCropBox() {
 
 /**
  * Initialize crop box dragging functionality
+ * Handles mouse events for moving and resizing the crop area
  */
 function initCropBoxDrag() {
     let isDragging = false;
@@ -691,6 +706,7 @@ function slideToResults() {
 
 /**
  * Handle generate button click - Main AI generation function
+ * Orchestrates the entire image generation process using Gemini API
  */
 async function handleGenerate() {
     console.log('🚀 Starting image generation process...');
@@ -772,7 +788,7 @@ const typeMapping = {
 };
 
 const useCaseMapping = {
-    'id-docs': 'The overall style should be polished, modern, and perfectly suited for ID documents (Passport, Driver License, etc.).',
+    'id-docs': 'The overall style should be polished, modern, and perfectly suited for ID documents (Passport, Driver Licence, etc.).',
     'branding': 'The overall style should be polished, modern, and perfectly suited for personal branding.',
     'linkedin': 'The overall style should be polished, modern, and perfectly suited for LinkedIn profile pictures.',
     'casual': 'The overall style should be casual, relaxed, and perfectly suited for social media profile pictures.'
@@ -808,6 +824,7 @@ const headTiltingMapping = {
 
 /**
  * Generate the AI prompt for image transformation
+ * Combines user selections into a structured prompt for the AI
  */
 function generatePrompt(parameters) {
     const { type, useCase, dressStyle, background, retouching, headTilting } = parameters;
@@ -833,6 +850,7 @@ function generatePrompt(parameters) {
 
 /**
  * Call Gemini API to generate a single professional image
+ * Sends the cropped image and prompt to Google's Gemini API for processing
  */
 async function generateSingleImage(base64ImageData, mimeType, apiKey, parameters) {
     console.log('🎯 Generating single image with parameters:', { parameters, mimeType });

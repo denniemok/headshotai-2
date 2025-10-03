@@ -1,220 +1,218 @@
-# 🎯 HeadshotAI - Professional Headshot Generator
+# 🎯 HeadshotAI 2
 
-Transform any photo into a professional headshot in seconds with AI-powered enhancement. Built with pure HTML, CSS, and JavaScript - no frameworks or build tools required!
+<div align="center">
 
-## ✨ Features
+**Transform any photo into a professional headshot in seconds.**
 
-- 🤖 **AI-Powered Enhancement** - Advanced AI technology for professional results using Google's Gemini API
-- 🔑 **User-Provided API Key** - Enter your own Gemini API key directly in the app (no server required)
-- ✂️ **Image Cropping** - Built-in cropper for perfect 1:1 aspect ratio headshots
-- 🗑️ **Background Remover** - Automatically removes and replaces backgrounds
-- 👁️ **Smart Blur** - Professional depth-of-field effects
-- 💖 **Quality Enhancer** - Improves image resolution and clarity
-- ⭐ **Beautification** - Subtle retouching for a polished look
-- 🎨 **9 Unique Styles** - Multiple professional suit styles and colors
-- ⚡ **Instant Results** - Generate headshots in seconds
-- 💾 **Download Options** - Download individual images or all as ZIP
-- 📱 **Responsive Design** - Works perfectly on all devices
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-4285F4?style=flat&logo=google&logoColor=white)](https://ai.google.dev/)
 
-## 🛠️ Tech Stack
+</div>
 
-- **Frontend**: Pure HTML5, CSS3, JavaScript (ES6+)
-- **AI Model**: Google Gemini API (gemini-2.5-flash-image-preview)
-- **Image Processing**: Canvas API for cropping
-- **File Handling**: JSZip for batch downloads (via CDN)
+<br>
 
-## 🚀 How to Use
+## ✨ Why HeadShotAI ?
 
-### Quick Start
+### 🌟 Perfect For
 
-1. **Open the HTML file**
-   - Simply open `index.html` in any modern web browser
-   - No build process or server required!
+<div align="center">
 
-2. **Enter your Gemini API Key**
-   - Get a free API key from [Google AI Studio](https://aistudio.google.com/apikey)
-   - Paste it into the API key field at the top of the page
-   - The key is saved in your browser's localStorage for convenience
+| 💼 **Professional** | 📱 **Social Media** | 🆔 **Official Documents** |
+|:---:|:---:|:---:|
+| LinkedIn Profile | Social Media Profile | ID Photo |
+| Resume / CV | Professional Portfolios | Passport, Driver Licence |
+| Email Signature | Company Website | Official Documents |
 
-3. **Upload a photo**
-   - Drag and drop your image or click to browse
-   - Supported formats: PNG, JPG, WEBP
+</div>
 
-4. **Crop your image**
-   - Adjust the crop area to frame your face perfectly
-   - The cropper maintains a 1:1 (square) aspect ratio
-   - Click "Confirm Crop" when ready
+<br>
 
-5. **Generate headshots**
-   - Click the "Generate Professional Headshots" button
-   - Wait while the AI creates 9 different professional styles
-   - This may take 1-2 minutes depending on API response times
+### 🌟 Features
 
-6. **Download your headshots**
-   - Download individual images by clicking "Save" on each one
-   - Or download all 9 images as a ZIP file with "Download All"
+<div align="center">
 
-## 📁 File Structure
+| 🚀 **Instant Results** | 🔒 **Privacy First** | 🎨 **Easy Customisation** |
+|:---:|:---:|:---:|
+| Just open and run | Runs locally | Various presets |
+| No complex setup | No data collection | Croppable image |
+| Generate in seconds	| Use trusted API | Customisable prompt |
 
-```
-├── index.html         # Main HTML file (open this in browser)
-├── styles.css         # All styles and animations
-├── app.js             # Application logic and API integration
-├── README.md          # This file
-└── QUICKSTART.md      # Quick start guide
-```
+</div>
 
-## 🔧 Configuration
+- 🤖 **AI-Powered Enhancement** - Google Gemini AI for professional results
+- ✂️ **Smart Image Cropping** - Built-in cropper for perfect 1:1 aspect ratio headshots
+- 🎨 **Multiple Professional Styles** - Various suit styles and backgrounds
+- 🔧 **Customizable Prompts** - Advanced prompt editor for fine-tuning
 
-### API Key Storage
+<br>
 
-The app stores your API key in the browser's localStorage for convenience. This means:
-- ✅ Your key persists between sessions
-- ✅ No need to re-enter it every time
-- ⚠️ The key is stored locally on your device only
-- ⚠️ Clear browser data will remove the saved key
+## 🚀 Quick Start
 
-### Generated Styles
+### Step 1: Get Your API Key 🔑
+1. Visit [Google AI Studio](https://aistudio.google.com/apikey)
+2. Create a free account and generate an API key
+3. Copy your API key (you'll need it in the next step)
 
-The AI generates headshots in 9 professional styles:
+> 💡 **Free Tier**: No credit card required! Generous free usage limits.
 
-**Classic Styles (3):**
-- Navy blue suit
-- Black suit
-- Light gray suit
+### Step 2: Open the Application 🌐
+1. Download or clone this repository
+2. Open `index.html` in any modern web browser
+3. No installation or build process required!
 
-**Modern Styles (3):**
-- Charcoal gray suit
-- Brown suit
-- Dark green suit
+### Step 3: Generate Your Headshot 🎨
+1. Paste your Gemini API key in the input field
+2. Drag & drop or click to select your image
+3. Adjust the crop area to frame your face perfectly
+4. Choose from professional styles and backgrounds
+5. Click the generate button
 
-**Minimalist Styles (3):**
-- Burgundy suit
-- Beige suit
-- Deep charcoal suit
+<br>
 
-## 🎨 Customization
+## 🛠️ File Structure
+
+| File | Purpose | Can I Edit? | What to Change |
+|:---:|:---:|:---:|:---:|
+| 📄 `index.html` | Page structure | ✅ Yes | Layout, text, structure |
+| 🎨 `styles.css` | All styling | ✅ Yes | Colors, fonts, spacing, animations |
+| ⚙️ `app.js` | App logic | ✅ Yes | Behaviour, features, AI prompts |
+| 📖 `README.md` | Full documentation | 📖 Reference | Complete guide |
+
+<br>
+
+## 🎨 Presets
+
+### Professional Types
+- **Professional Headshot** - Classic business portrait
+- **LinkedIn Style** - Perfect for professional networking
+- **Passport Photo** - Official document-ready
+- **Casual Portrait** - Relaxed professional look
+
+### Dress Styles
+- **Navy Blue Suit** - Three-piece with Windsor knot tie
+- **Navy Blue Dress** - Professional women's attire
+- **Grey Sweater** - Modern casual professional
+- **Black Suit** - Classic formal business attire
+- **Grey Suit** - Minimalist and elegant
+- **Casual Outfit** - Relaxed professional style
+
+### Background Options
+- **Plain White** - Clean and professional
+- **Soft Grey** - Subtle and modern
+- **Smoke Blue** - Contemporary professional
+- **Modern Office** - Blurred office environment
+- **Studio Backdrop** - Professional photography setting
+- **Study Room** - Academic and intellectual
+
+<br>
+
+## 🔧 Customisation
 
 ### Modifying Styles
-
-You can customize the appearance by editing `styles.css`:
-- Color schemes: Search for gradient definitions
-- Layout: Modify grid templates and spacing
-- Animations: Adjust keyframes and transitions
+Edit `styles.css` to customize:
+- Color schemes and gradients
+- Layout and spacing
+- Animations and transitions
+- Responsive breakpoints
 
 ### Changing AI Prompts
-
-To modify how the AI transforms images, edit the `generatePrompt()` function in `app.js`:
+Modify the `generatePrompt()` function in `app.js`:
 - Adjust retouching instructions
-- Change suit style descriptions
+- Change style descriptions
 - Modify background preferences
+- Add new style options
 
-### Adding More Suit Styles
-
-Edit the `professionalLooks` array in `app.js` to add more styles:
-
+### Adding New Styles
+Edit the parameter mappings in `app.js`:
 ```javascript
-const professionalLooks = [
-    { style: 'classic', color: 'your color here' },
+const dressStyleMapping = {
+    'your-style': 'Your custom style description here',
     // Add more styles...
-];
+};
 ```
+
+<br>
 
 ## 🔒 Privacy & Security
 
-- ✅ **No Server Required** - Everything runs in your browser
-- ✅ **No Data Collection** - Your images never leave your device except to go directly to Gemini API
-- ✅ **API Key Security** - Your key is stored locally and only sent to Google's servers
-- ⚠️ **HTTPS Recommended** - If hosting online, use HTTPS to protect your API key in transit
+<div align="center">
+
+| ✅ **Local Processing** | ✅ **No Data Collection** | ✅ **Secure API** |
+|:---:|:---:|:---:|
+| Runs entirely in your browser | No server or database | Direct to Google's secure API |
+| No external dependencies | Your images stay private | API key stored locally only |
+
+</div>
+
+**Important Notes:**
+- Your API key is stored in browser localStorage (local device only)
+- Images are sent directly to Google's Gemini API for processing
+- No data is collected or stored on any external servers
+- Use HTTPS when hosting online for additional security
+
+<br>
 
 ## 🐛 Troubleshooting
 
-### Images Not Generating
+<details>
+<summary><strong>🔑 API Key Issues</strong></summary>
 
-1. **Check API Key**
-   - Ensure your Gemini API key is valid
-   - Verify it has access to the `gemini-2.5-flash-image-preview` model
-   - Check the browser console (F12) for specific error messages
+**"Connection Failed"**
+- ✅ Ensure your key is correct and active
+- ✅ Wait a moment and try again (free tier has rate limits)
+- ✅ Ensure you have access to Gemini API
 
-2. **Rate Limiting**
-   - The API has rate limits; wait a moment and try again
-   - Free tier has limited requests per minute
+</details>
 
-3. **Image Format**
-   - Ensure your image is in PNG, JPG, or WEBP format
-   - Very large images may need to be resized first
+<details>
+<summary><strong>📸 Image Processing Issues</strong></summary>
 
-### Cropper Not Working
+**"Failed to generate image"**
+- ✅ Verify your API key is valid
+- ✅ Try a different photo or format
+- ✅ Wait a moment and try again (rate limiting)
 
-1. **Browser Compatibility**
-   - Use a modern browser (Chrome, Firefox, Safari, Edge)
-   - Enable JavaScript in your browser settings
+**Images taking too long**
+- ✅ Generation takes 1-2 minutes (this is normal)
+- ✅ Free tier might be slower during peak times
+- ✅ Be patient - AI processing takes time
 
-2. **Image Loading Issues**
-   - Check browser console for errors
-   - Try a different image file
+</details>
 
-### Download Issues
+<details>
+<summary><strong>💾 Cropper / Download Issues</strong></summary>
 
-1. **ZIP Downloads**
-   - Ensure JSZip library is loading (check network tab in browser dev tools)
-   - Try downloading individual images instead
+**Cropper not appearing**
+- ✅ Enable JavaScript in your browser
+- ✅ Try refreshing the page
+- ✅ Use a modern browser (Chrome, Firefox, Safari, Edge)
+- ✅ Check browser console (F12) for errors
 
-2. **File Permissions**
-   - Check that your browser allows downloads
-   - Verify popup blockers aren't interfering
+**Download not working**
+- ✅ Check browser download settings
+- ✅ Disable popup blockers
+- ✅ Ensure JSZip library loads properly
 
-## 📝 Browser Compatibility
+</details>
 
-Tested and working on:
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
+<br>
 
-Required browser features:
-- Canvas API
-- FileReader API
-- Fetch API
-- localStorage
-- ES6+ JavaScript
+## 👨‍💻 Acknowledgements
 
-## 🎓 Code Structure
+This project is built upon and inspired by:
 
-The application is organized into clear sections:
+- 📚 [HeadshotAI](https://github.com/anandsuraj/ai-professional-headshot-generator) by Suraj Anand
 
-### app.js Organization
+<br>
 
-1. **Application State** - Central state management
-2. **DOM Elements** - All element references
-3. **Event Listeners** - Event binding
-4. **API Key Functions** - Key management and visibility
-5. **Upload Functions** - File handling and drag-drop
-6. **Cropper Functions** - Image cropping logic
-7. **Generation Functions** - Gemini API integration
-8. **Display Functions** - UI updates and result rendering
-9. **Download Functions** - File download and ZIP creation
-10. **UI Update Functions** - Button states and resets
-11. **Initialization** - App startup
+<hr>
 
-Each function includes JSDoc-style comments explaining its purpose.
+<div align="center">
 
-## 📄 License
+This project is released under the terms of the [MIT License](LICENSE).
 
-This project is provided as-is for educational and personal use. The original React version was created by Suraj Anand.
+**© 2025 HeadshotAI 2**
 
-## 👨‍💻 Credits
-
-**Original React Version:** [Suraj Anand](https://www.linkedin.com/in/anandsuraj/)  
-**Plain HTML/CSS/JS Version:** Rewritten to remove framework dependencies
-
-## 🔗 Resources
-
-- [Google Gemini API Documentation](https://ai.google.dev/docs)
-- [Get Gemini API Key](https://aistudio.google.com/apikey)
-- [JSZip Library](https://stuk.github.io/jszip/)
-
----
-
-© 2025 HeadshotAI Professional Generator. Made with ♥ for your professional success.
-
+</div>
