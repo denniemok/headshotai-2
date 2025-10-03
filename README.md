@@ -9,6 +9,8 @@
 _Perfect for LinkedIn, Social Media, Resume/CV, Portfolios,<br>
 Passport, ID Card, Driver License, Email Signature, Company Website, etc._
 
+**[🌐 Live Demo](https://denniemok.github.io/headshotai-2)** • **[📥 Download](https://github.com/denniemok/headshotai-2/archive/refs/heads/main.zip)** • **[📖 Documentation](#-quick-start)**
+
 <br>
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
@@ -20,18 +22,10 @@ Passport, ID Card, Driver License, Email Signature, Company Website, etc._
 
 <table>
   <tr>
-    <td width=200px>
-      <img src="https://i.imgur.com/OqORmOp.png">
-    </td>
-    <td width=200px>
-      <img src="https://i.imgur.com/onjSxnb.png">
-    </td>
-    <td width=200px>
-      <img src="https://i.imgur.com/LQXnfOI.png">
-    </td>
-    <td width=200px>
-      <img src="https://i.imgur.com/ENIOWHe.png">
-    </td>
+    <td width=200px><img src="https://i.imgur.com/OqORmOp.png"></td>
+    <td width=200px><img src="https://i.imgur.com/onjSxnb.png"></td>
+    <td width=200px><img src="https://i.imgur.com/LQXnfOI.png"></td>
+    <td width=200px><img src="https://i.imgur.com/ENIOWHe.png"></td>
   </tr>
   <tr align=center>
     <td>Original</td>
@@ -41,7 +35,7 @@ Passport, ID Card, Driver License, Email Signature, Company Website, etc._
   </tr>
 </table>
 
-AI Model from [Whatmore](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-female/).
+AI Model from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-female/)
 
 </div>
 
@@ -61,6 +55,17 @@ AI Model from [Whatmore](https://www.whatmore.ai/ai-fashion-models/photos/asian-
 - ✂️ **Smart Image Cropping** - Built-in cropper for perfect 1:1 aspect ratio headshots
 - 🎨 **Multiple Professional Styles** - Various suit styles and backgrounds
 - 🔧 **Customizable Prompts** - Advanced prompt editor for fine-tuning
+
+<div align="center">
+
+<table>
+  <tr>
+    <td width=400px><img src="https://i.imgur.com/J977lRs.png"></td>
+    <td width=400px><img src="https://i.imgur.com/uGyPJDd.png"></td>
+  </tr>
+</table>
+
+</div>
 
 <br>
 
@@ -202,5 +207,6 @@ This project is released under the terms of the [MIT License](LICENSE).
 
 
 </div>
+
 
 
