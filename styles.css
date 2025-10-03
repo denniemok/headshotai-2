@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: inherit;
 }
 
 body {
@@ -182,7 +183,7 @@ body {
     font-weight: 500;
     line-height: 1.5;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: 'Courier New', monospace;
+    font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
@@ -505,7 +506,7 @@ body {
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.6;
-    font-family: 'Courier New', monospace;
+    font-family: 'Courier New', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     background: white;
     color: #1f2937;
     resize: vertical;
