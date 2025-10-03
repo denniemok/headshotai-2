@@ -9,13 +9,17 @@
     font-family: inherit;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
-    background: linear-gradient(to bottom right, #eff6ff, #ffffff, #faf5ff);
+    background: #ffffff;
     position: relative;
     overflow-x: hidden;
 }
@@ -38,18 +42,18 @@ body {
 }
 
 .bg-circle-1 {
-    top: -160px;
-    right: -160px;
-    width: 384px;
-    height: 384px;
+    top: -300px;
+    right: -300px;
+    width: 200px;
+    height: 200px;
     background: linear-gradient(to bottom right, rgba(191, 219, 254, 0.3), rgba(221, 214, 254, 0.3));
 }
 
 .bg-circle-2 {
-    bottom: -160px;
-    left: -160px;
-    width: 384px;
-    height: 384px;
+    bottom: -300px;
+    left: -300px;
+    width: 200px;
+    height: 200px;
     background: linear-gradient(to bottom right, rgba(221, 214, 254, 0.3), rgba(251, 207, 232, 0.3));
 }
 
@@ -85,7 +89,7 @@ body {
 
 .header {
     width: 100%;
-    max-width: 1152px;
+    max-width: 42rem;
     text-align: center;
 }
 
@@ -561,7 +565,7 @@ body {
 
 .main-content {
     width: 100%;
-    max-width: 1408px;
+    max-width: 42rem;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -620,7 +624,7 @@ body {
     position: relative;
     width: 100%;
     min-height: 500px;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .slide {
@@ -709,8 +713,77 @@ body {
     }
 }
 
-/* Responsive adjustments for slidable container */
+/* Mobile responsive adjustments */
 @media (max-width: 768px) {
+    /* Header adjustments */
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .icon-wrapper {
+        padding: 0.75rem;
+        margin-right: 0.75rem;
+    }
+    
+    .icon-large {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    
+    /* Card adjustments */
+    .card {
+        padding: 1.5rem;
+        height: 500px;
+        min-height: 500px;
+        max-height: 500px;
+    }
+    
+    .card-title {
+        font-size: 1.25rem;
+    }
+    
+    .card-subtitle {
+        font-size: 0.75rem;
+    }
+    
+    /* Parameter section adjustments */
+    .parameter-section-title {
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+    }
+    
+    .parameter-label {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .parameter-select {
+        padding: 0.75rem 2rem 0.75rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    /* API key section adjustments */
+    .api-key-label {
+        font-size: 0.75rem;
+    }
+    
+    .api-key-input {
+        padding: 0.75rem 2.5rem 0.75rem 0.75rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Button adjustments */
+    .btn-large {
+        padding: 0.875rem;
+        font-size: 1rem;
+    }
+    
+    /* Slide navigation adjustments */
     .slide-navigation {
         padding: 0 0.5rem;
         margin-bottom: 1rem;
@@ -729,15 +802,54 @@ body {
         min-height: 500px;
     }
     
-    .card {
-        height: 500px;
-        min-height: 500px;
-        max-height: 500px;
-    }
-    
     .upload-area,
     .result-area {
         height: 350px;
+    }
+    
+    /* Footer adjustments */
+    .footer-content {
+        padding: 1rem;
+    }
+    
+    .footer-text {
+        font-size: 0.75rem;
+    }
+    
+    .footer-author {
+        font-size: 0.625rem;
+    }
+}
+
+/* Extra small mobile adjustments */
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 2rem;
+    }
+    
+    .subtitle {
+        font-size: 0.875rem;
+    }
+    
+    .card {
+        padding: 1rem;
+    }
+    
+    .card-title {
+        font-size: 1.125rem;
+    }
+    
+    .parameter-section-title {
+        font-size: 1rem;
+    }
+    
+    .parameter-grid {
+        gap: 1rem;
+    }
+    
+    .btn-large {
+        padding: 0.75rem;
+        font-size: 0.875rem;
     }
 }
 
@@ -1364,6 +1476,7 @@ body {
     border: 2px solid #3b82f6;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
     cursor: move;
+    overflow: hidden;
 }
 
 .crop-handle {
