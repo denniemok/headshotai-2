@@ -1,8 +1,15 @@
 # 🎯 HeadshotAI 2
 
+<br>
+
 <div align="center">
 
 **Transform any photo into a professional headshot in seconds.**
+
+_Perfect for LinkedIn, Social Media, ResumeCV, Portfolios,<br>
+Passport, ID Card, Driver License, Email Signature, Company Website, etc._
+
+<br>
 
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -15,31 +22,13 @@
 
 ## ✨ Why HeadShotAI ?
 
-### 🌟 Perfect For
-
-<div align="center">
-
-| 💼 **Professional** | 📱 **Social Media** | 🆔 **Official Documents** |
-|:---:|:---:|:---:|
-| LinkedIn Profile | Social Media Profile | ID Photo |
-| Resume / CV | Professional Portfolios | Passport, Driver Licence |
-| Email Signature | Company Website | Official Documents |
-
-</div>
-
-<br>
-
-### 🌟 Features
-
-<div align="center">
-
 | 🚀 **Instant Results** | 🔒 **Privacy First** | 🎨 **Easy Customisation** |
 |:---:|:---:|:---:|
 | Just open and run | Runs locally | Various presets |
 | No complex setup | No data collection | Croppable image |
 | Generate in seconds	| Use trusted API | Customisable prompt |
 
-</div>
+
 
 - 🤖 **AI-Powered Enhancement** - Google Gemini AI for professional results
 - ✂️ **Smart Image Cropping** - Built-in cropper for perfect 1:1 aspect ratio headshots
@@ -73,18 +62,18 @@
 
 ## 🛠️ File Structure
 
-| File | Purpose | Can I Edit? | What to Change |
-|:---:|:---:|:---:|:---:|
-| 📄 `index.html` | Page structure | ✅ Yes | Layout, text, structure |
-| 🎨 `styles.css` | All styling | ✅ Yes | Colors, fonts, spacing, animations |
-| ⚙️ `app.js` | App logic | ✅ Yes | Behaviour, features, AI prompts |
-| 📖 `README.md` | Full documentation | 📖 Reference | Complete guide |
+```
+├── 📄 index.html          # Main application file
+├── 🎨 styles.css          # All styles and animations
+├── ⚙️ app.js              # Application logic and API integration
+└── 📖 README.md           # This documentation
+```
 
 <br>
 
-## 🎨 Presets
+## 🎨 Customisation
 
-### Professional Types
+### Use Cases
 - **Professional Headshot** - Classic business portrait
 - **LinkedIn Style** - Perfect for professional networking
 - **Passport Photo** - Official document-ready
@@ -108,43 +97,12 @@
 
 <br>
 
-## 🔧 Customisation
-
-### Modifying Styles
-Edit `styles.css` to customize:
-- Color schemes and gradients
-- Layout and spacing
-- Animations and transitions
-- Responsive breakpoints
-
-### Changing AI Prompts
-Modify the `generatePrompt()` function in `app.js`:
-- Adjust retouching instructions
-- Change style descriptions
-- Modify background preferences
-- Add new style options
-
-### Adding New Styles
-Edit the parameter mappings in `app.js`:
-```javascript
-const dressStyleMapping = {
-    'your-style': 'Your custom style description here',
-    // Add more styles...
-};
-```
-
-<br>
-
 ## 🔒 Privacy & Security
-
-<div align="center">
 
 | ✅ **Local Processing** | ✅ **No Data Collection** | ✅ **Secure API** |
 |:---:|:---:|:---:|
 | Runs entirely in your browser | No server or database | Direct to Google's secure API |
 | No external dependencies | Your images stay private | API key stored locally only |
-
-</div>
 
 **Important Notes:**
 - Your API key is stored in browser localStorage (local device only)
@@ -214,5 +172,6 @@ This project is built upon and inspired by:
 This project is released under the terms of the [MIT License](LICENSE).
 
 **© 2025 HeadshotAI 2**
+
 
 </div>
