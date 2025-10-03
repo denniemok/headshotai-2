@@ -35,7 +35,22 @@ Passport, ID Card, Driver License, Email Signature, Company Website, etc._
   </tr>
 </table>
 
-AI Model from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-female/)
+<table>
+  <tr>
+    <td width=200px><img src="https://i.imgur.com/RBXBMPu.png"></td>
+    <td width=200px><img src="https://i.imgur.com/9F4BToK.png"></td>
+    <td width=200px><img src="https://i.imgur.com/KxuEgKe.png"></td>
+    <td width=200px><img src="https://i.imgur.com/zHrc5Dc.png"></td>
+  </tr>
+  <tr align=center>
+    <td>Original</td>
+    <td>Generated</td>
+    <td>Generated</td>
+    <td>Generated</td>
+  </tr>
+</table>
+
+AI Models from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-female/)
 
 </div>
 
@@ -207,6 +222,7 @@ This project is released under the terms of the [MIT License](LICENSE).
 
 
 </div>
+
 
 
 
