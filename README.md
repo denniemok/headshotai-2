@@ -16,6 +16,33 @@ Passport, ID Card, Driver License, Email Signature, Company Website, etc._
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-4285F4?style=flat&logo=google&logoColor=white)](https://ai.google.dev/)
 
+<br>
+
+<table>
+  <tr>
+    <td width=200px>
+      <img src="https://i.imgur.com/OqORmOp.png">
+    </td>
+    <td width=200px>
+      <img src="https://i.imgur.com/onjSxnb.png">
+    </td>
+    <td width=200px>
+      <img src="https://i.imgur.com/LQXnfOI.png">
+    </td>
+    <td width=200px>
+      <img src="https://i.imgur.com/ENIOWHe.png">
+    </td>
+  </tr>
+  <tr align=center>
+    <td>Original</td>
+    <td>Generated</td>
+    <td>Generated</td>
+    <td>Generated</td>
+  </tr>
+</table>
+
+AI Model from [Whatmore](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-female/).
+
 </div>
 
 <br>
@@ -175,4 +202,5 @@ This project is released under the terms of the [MIT License](LICENSE).
 
 
 </div>
+
 
