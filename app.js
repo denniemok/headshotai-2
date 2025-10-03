@@ -194,25 +194,58 @@ async function handleTestConnection() {
         const data = await response.json();
         console.log('✅ API Response Data:', data);
         
-        // Show success message
+        // Show success state
+        testConnectionBtn.classList.add('success');
+        testConnectionBtn.innerHTML = `
+            <svg class="icon-small btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Connection Successful
+        `;
+        
         showError('✅ API connection successful! You can now generate headshots.');
         setTimeout(() => {
             hideAllResultStates();
             resultPlaceholder.classList.remove('hidden');
+            // Reset button after delay
+            setTimeout(() => {
+                testConnectionBtn.classList.remove('success');
+                testConnectionBtn.innerHTML = `
+                    <svg class="icon-small btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Test Connection
+                `;
+            }, 2000);
         }, 3000);
         
     } catch (err) {
         console.error('❌ API Connection Test Failed:', err);
-        showError(`❌ API connection failed: ${err.message}`);
-    } finally {
-        // Reset button
-        testConnectionBtn.disabled = false;
+        
+        // Show error state
+        testConnectionBtn.classList.add('error');
         testConnectionBtn.innerHTML = `
             <svg class="icon-small btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Test Connection
+            Connection Failed
         `;
+        
+        showError(`❌ API connection failed: ${err.message}`);
+        
+        // Reset button after delay
+        setTimeout(() => {
+            testConnectionBtn.classList.remove('error');
+            testConnectionBtn.innerHTML = `
+                <svg class="icon-small btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Test Connection
+            `;
+        }, 3000);
+    } finally {
+        // Reset button state
+        testConnectionBtn.disabled = false;
     }
 }
 

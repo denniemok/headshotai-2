@@ -167,23 +167,42 @@ body {
     font-weight: 600;
     color: #1f2937;
     margin-bottom: 0.75rem;
+    margin-left: -1.5rem;
+    padding-left: 0;
     font-size: 0.875rem;
+    text-align: left;
+    justify-content: flex-start;
 }
 
 .api-key-input {
     width: 100%;
-    padding: 0.75rem 3rem 0.75rem 1rem;
+    padding: 0.875rem 3rem 0.875rem 1rem;
     border: 2px solid #d1d5db;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     font-size: 0.875rem;
-    transition: all 0.2s;
+    font-weight: 500;
+    line-height: 1.5;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: 'Courier New', monospace;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .api-key-input:focus {
     outline: none;
     border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.api-key-input:hover {
+    border-color: #6b7280;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.api-key-input:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .toggle-visibility-btn {
@@ -219,17 +238,31 @@ body {
     text-decoration: underline;
 }
 
-.api-key-actions {
+.api-key-test-container {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    justify-content: center;
     margin-top: 1rem;
 }
 
 .btn-small {
     padding: 0.5rem 1rem;
     font-size: 0.75rem;
-    align-self: flex-start;
+}
+
+.test-connection-btn {
+    transition: all 0.3s ease;
+}
+
+.test-connection-btn.success {
+    background-color: #10b981;
+    border-color: #10b981;
+    color: white;
+}
+
+.test-connection-btn.error {
+    background-color: #ef4444;
+    border-color: #ef4444;
+    color: white;
 }
 
 /* ==================== */
@@ -239,7 +272,7 @@ body {
 .parameter-selection-section {
     margin-bottom: 3rem;
     width: 100%;
-    max-width: 64rem;
+    max-width: 42rem;
     margin-left: auto;
     margin-right: auto;
 }
@@ -269,6 +302,8 @@ body {
 .parameter-group {
     display: flex;
     flex-direction: column;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .parameter-label {
@@ -278,29 +313,101 @@ body {
     font-weight: 600;
     color: #1f2937;
     margin-bottom: 0.75rem;
+    margin-left: -1.5rem;
+    padding-left: 0;
     font-size: 0.875rem;
+    text-align: left;
+    justify-content: flex-start;
 }
 
 .parameter-select {
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.875rem 2.5rem 0.875rem 1rem;
     border: 2px solid #d1d5db;
-    border-radius: 0.5rem;
+    border-radius: 0.75rem;
     font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
     background: white;
     color: #1f2937;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.75rem center;
+    background-repeat: no-repeat;
+    background-size: 1.25em 1.25em;
+    appearance: none;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .parameter-select:focus {
     outline: none;
     border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
 
 .parameter-select:hover {
-    border-color: #9ca3af;
+    border-color: #6b7280;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.parameter-select:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Enhanced dropdown option styling */
+.parameter-select option {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: #1f2937;
+    background: white;
+    border: none;
+}
+
+.parameter-select option:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.parameter-select option:checked {
+    background-color: #3b82f6;
+    color: white;
+    font-weight: 600;
+}
+
+/* Enhanced dropdown appearance for better consistency */
+.parameter-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Custom dropdown styling for webkit browsers */
+.parameter-select::-webkit-list-button {
+    display: none;
+}
+
+.parameter-select::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
+/* Firefox dropdown styling */
+.parameter-select::-moz-list-bullet {
+    display: none;
+}
+
+/* Ensure consistent dropdown appearance across browsers */
+.parameter-select option {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    color: #1f2937;
+    background: white;
+    border: none;
+    border-radius: 0.5rem;
+    margin: 0.25rem;
 }
 
 @media (max-width: 768px) {
@@ -460,15 +567,17 @@ body {
 
 .content-grid {
     width: 100%;
+    max-width: 42rem;
+    margin: 2rem auto 0;
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-top: 2rem;
 }
 
 @media (min-width: 1024px) {
     .content-grid {
         grid-template-columns: repeat(2, 1fr);
+        max-width: 64rem;
     }
 }
 
