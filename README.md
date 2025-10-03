@@ -6,7 +6,7 @@
 
 **Transform any photo into a professional headshot in seconds.**
 
-_Perfect for LinkedIn, Social Media, ResumeCV, Portfolios,<br>
+_Perfect for LinkedIn, Social Media, Resume/CV, Portfolios,<br>
 Passport, ID Card, Driver License, Email Signature, Company Website, etc._
 
 <br>
@@ -175,3 +175,4 @@ This project is released under the terms of the [MIT License](LICENSE).
 
 
 </div>
+
