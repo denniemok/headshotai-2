@@ -485,7 +485,9 @@ function openCropper(img) {
     ctx.drawImage(img, 0, 0, width, height);
     
     // Initialize crop box (90% of canvas, centered, square aspect ratio)
-    const cropSize = Math.min(width, height) * 0.9;
+    // Use smaller size on mobile to ensure handles stay within bounds
+    const isMobile = window.innerWidth <= 768;
+    const cropSize = Math.min(width, height) * (isMobile ? 0.7 : 0.9);
     state.cropData.width = cropSize;
     state.cropData.height = cropSize;
     state.cropData.startX = (width - cropSize) / 2;
@@ -570,8 +572,11 @@ function initCropBoxDrag() {
             const dy = pos.y - startMouseY;
             
             // Update position with bounds checking
-            state.cropData.startX = Math.max(0, Math.min(startBoxX + dx, cropCanvas.width - state.cropData.width));
-            state.cropData.startY = Math.max(0, Math.min(startBoxY + dy, cropCanvas.height - state.cropData.height));
+            // Add extra margin for mobile to account for handle size
+            const isMobile = window.innerWidth <= 768;
+            const margin = isMobile ? 8 : 6; // Handle size + some padding
+            state.cropData.startX = Math.max(margin, Math.min(startBoxX + dx, cropCanvas.width - state.cropData.width - margin));
+            state.cropData.startY = Math.max(margin, Math.min(startBoxY + dy, cropCanvas.height - state.cropData.height - margin));
             
             updateCropBox();
         } else if (isResizing && resizeHandle) {
@@ -585,42 +590,54 @@ function initCropBoxDrag() {
             if (handleClass.includes('se')) {
                 // Southeast - increase size
                 const delta = Math.max(dx, dy); // Use max to maintain square aspect
-                const newSize = Math.max(50, startBoxWidth + delta);
-                const maxSize = Math.min(cropCanvas.width - startBoxX, cropCanvas.height - startBoxY);
+                const isMobile = window.innerWidth <= 768;
+                const minSize = isMobile ? 80 : 50; // Larger minimum size on mobile
+                const margin = isMobile ? 8 : 6;
+                const newSize = Math.max(minSize, startBoxWidth + delta);
+                const maxSize = Math.min(cropCanvas.width - startBoxX - margin, cropCanvas.height - startBoxY - margin);
                 state.cropData.width = Math.min(newSize, maxSize);
                 state.cropData.height = state.cropData.width;
             } else if (handleClass.includes('nw')) {
                 // Northwest - decrease size and move position
                 const delta = Math.min(dx, dy);
-                const newSize = Math.max(50, startBoxWidth - delta);
+                const isMobile = window.innerWidth <= 768;
+                const minSize = isMobile ? 80 : 50;
+                const margin = isMobile ? 8 : 6;
+                const newSize = Math.max(minSize, startBoxWidth - delta);
                 state.cropData.width = newSize;
                 state.cropData.height = newSize;
-                state.cropData.startX = startBoxX + (startBoxWidth - newSize);
-                state.cropData.startY = startBoxY + (startBoxHeight - newSize);
+                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - newSize));
+                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - newSize));
             } else if (handleClass.includes('ne')) {
                 // Northeast
                 const deltaX = dx;
                 const deltaY = -dy;
                 const delta = Math.max(deltaX, deltaY);
-                const newSize = Math.max(50, startBoxWidth + delta);
-                const maxSizeX = cropCanvas.width - startBoxX;
-                const maxSizeY = startBoxY + startBoxHeight;
+                const isMobile = window.innerWidth <= 768;
+                const minSize = isMobile ? 80 : 50;
+                const margin = isMobile ? 8 : 6;
+                const newSize = Math.max(minSize, startBoxWidth + delta);
+                const maxSizeX = cropCanvas.width - startBoxX - margin;
+                const maxSizeY = startBoxY + startBoxHeight - margin;
                 const finalSize = Math.min(newSize, maxSizeX, maxSizeY);
                 state.cropData.width = finalSize;
                 state.cropData.height = finalSize;
-                state.cropData.startY = startBoxY + (startBoxHeight - finalSize);
+                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - finalSize));
             } else if (handleClass.includes('sw')) {
                 // Southwest
                 const deltaX = -dx;
                 const deltaY = dy;
                 const delta = Math.max(deltaX, deltaY);
-                const newSize = Math.max(50, startBoxWidth + delta);
-                const maxSizeX = startBoxX + startBoxWidth;
-                const maxSizeY = cropCanvas.height - startBoxY;
+                const isMobile = window.innerWidth <= 768;
+                const minSize = isMobile ? 80 : 50;
+                const margin = isMobile ? 8 : 6;
+                const newSize = Math.max(minSize, startBoxWidth + delta);
+                const maxSizeX = startBoxX + startBoxWidth - margin;
+                const maxSizeY = cropCanvas.height - startBoxY - margin;
                 const finalSize = Math.min(newSize, maxSizeX, maxSizeY);
                 state.cropData.width = finalSize;
                 state.cropData.height = finalSize;
-                state.cropData.startX = startBoxX + (startBoxWidth - finalSize);
+                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - finalSize));
             }
             
             updateCropBox();

@@ -1629,7 +1629,7 @@ body {
 /* Mobile-friendly crop box */
 @media (max-width: 768px) {
     .crop-box {
-        border-width: 3px;
+        border-width: 2px;
         border-color: #60a5fa; /* Slightly lighter blue for better visibility */
     }
 }
@@ -1647,9 +1647,9 @@ body {
 /* Mobile-friendly crop handles */
 @media (max-width: 768px) {
     .crop-handle {
-        width: 20px;
-        height: 20px;
-        border-width: 3px;
+        width: 16px;
+        height: 16px;
+        border-width: 2px;
     }
 }
 
@@ -1675,6 +1675,29 @@ body {
     bottom: -6px;
     right: -6px;
     cursor: se-resize;
+}
+
+/* Mobile crop handle positioning */
+@media (max-width: 768px) {
+    .crop-handle-nw {
+        top: -8px;
+        left: -8px;
+    }
+    
+    .crop-handle-ne {
+        top: -8px;
+        right: -8px;
+    }
+    
+    .crop-handle-sw {
+        bottom: -8px;
+        left: -8px;
+    }
+    
+    .crop-handle-se {
+        bottom: -8px;
+        right: -8px;
+    }
 }
 
 .modal-actions {
