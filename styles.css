@@ -267,6 +267,10 @@ body {
     transition: all 0.3s ease;
 }
 
+.api-key-input-wrapper {
+    position: relative;
+}
+
 .api-key-label {
     display: flex;
     align-items: center;
@@ -322,14 +326,16 @@ body {
 
 .toggle-visibility-btn {
     position: absolute;
-    right: 2.25rem;
-    margin-top: -2.5rem;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
     padding: 0.5rem;
     background: transparent;
     border: none;
     cursor: pointer;
     color: var(--text-tertiary);
     transition: color 0.2s;
+    z-index: 10;
 }
 
 .toggle-visibility-btn:hover {
