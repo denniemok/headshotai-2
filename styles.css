@@ -545,6 +545,7 @@ body {
     font-size: 0.75rem;
     color: #1e40af;
     line-height: 1.5;
+    text-align: left;
 }
 
 .prompt-editor-hint svg {
