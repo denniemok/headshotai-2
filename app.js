@@ -2,7 +2,7 @@
  * HeadshotAI - Professional Headshot Generator
  * 
  * This application uses Google's Gemini AI API to transform photos into
- * professional headshots. It generates 9 different professional styles.
+ * professional headshots. It generates 1 image based on the selected style.
  */
 
 // ==================== Application State ====================
@@ -12,7 +12,15 @@ const state = {
     selectedFile: null,            // Original uploaded file
     croppedImageData: null,        // Cropped image data (base64)
     croppedImageMimeType: null,    // MIME type of cropped image
-    generatedImages: [],           // Array of generated base64 images
+    parameters: {
+        type: 'professional headshot',
+        useCase: 'passport',
+        dressStyle: 'navy-suit',
+        background: 'soft-grey',
+        retouching: 'true',
+        headTilting: 'true'
+    },
+    generatedImage: null,          // Single generated base64 image
     isLoading: false,              // Loading state
     cropData: {
         image: null,               // Image object for cropping
@@ -30,6 +38,17 @@ const apiKeyInput = document.getElementById('apiKeyInput');
 const toggleApiKeyBtn = document.getElementById('toggleApiKeyBtn');
 const showIcon = document.getElementById('showIcon');
 const hideIcon = document.getElementById('hideIcon');
+
+// Parameter selection elements
+const typeSelect = document.getElementById('typeSelect');
+const useCaseSelect = document.getElementById('useCaseSelect');
+const dressStyleSelect = document.getElementById('dressStyleSelect');
+const backgroundSelect = document.getElementById('backgroundSelect');
+const retouchingSelect = document.getElementById('retouchingSelect');
+const headTiltingSelect = document.getElementById('headTiltingSelect');
+
+// Test connection elements
+const testConnectionBtn = document.getElementById('testConnectionBtn');
 
 // Upload elements
 const uploadArea = document.getElementById('uploadArea');
@@ -68,6 +87,17 @@ toggleApiKeyBtn.addEventListener('click', toggleApiKeyVisibility);
 // API Key input
 apiKeyInput.addEventListener('input', handleApiKeyInput);
 
+// Parameter selections
+typeSelect.addEventListener('change', handleParameterChange);
+useCaseSelect.addEventListener('change', handleParameterChange);
+dressStyleSelect.addEventListener('change', handleParameterChange);
+backgroundSelect.addEventListener('change', handleParameterChange);
+retouchingSelect.addEventListener('change', handleParameterChange);
+headTiltingSelect.addEventListener('change', handleParameterChange);
+
+// Test connection
+testConnectionBtn.addEventListener('click', handleTestConnection);
+
 // Upload area events
 uploadArea.addEventListener('click', () => fileInput.click());
 uploadArea.addEventListener('dragover', handleDragOver);
@@ -102,6 +132,88 @@ function toggleApiKeyVisibility() {
 function handleApiKeyInput(e) {
     state.apiKey = e.target.value.trim();
     updateGenerateButton();
+    updateTestConnectionButton();
+}
+
+/**
+ * Handle parameter changes
+ */
+function handleParameterChange(e) {
+    const parameterName = e.target.id.replace('Select', '');
+    state.parameters[parameterName] = e.target.value;
+    console.log('📝 Parameter updated:', parameterName, '=', e.target.value);
+    updateGenerateButton();
+}
+
+/**
+ * Test API connection
+ */
+async function handleTestConnection() {
+    if (!state.apiKey) {
+        showError('Please enter your API key first.');
+        return;
+    }
+    
+    console.log('🔍 Testing API connection...');
+    testConnectionBtn.disabled = true;
+    testConnectionBtn.innerHTML = `
+        <svg class="icon-small btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        Testing...
+    `;
+    
+    try {
+        // Test with a simple text generation request
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${state.apiKey}`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: "Hello, please respond with 'API connection successful'"
+                        }]
+                    }]
+                })
+            }
+        );
+        
+        console.log('📡 API Response Status:', response.status);
+        console.log('📡 API Response Headers:', Object.fromEntries(response.headers.entries()));
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error('❌ API Error Response:', errorData);
+            throw new Error(`API Error: ${errorData.error?.message || 'Unknown error'}`);
+        }
+        
+        const data = await response.json();
+        console.log('✅ API Response Data:', data);
+        
+        // Show success message
+        showError('✅ API connection successful! You can now generate headshots.');
+        setTimeout(() => {
+            hideAllResultStates();
+            resultPlaceholder.classList.remove('hidden');
+        }, 3000);
+        
+    } catch (err) {
+        console.error('❌ API Connection Test Failed:', err);
+        showError(`❌ API connection failed: ${err.message}`);
+    } finally {
+        // Reset button
+        testConnectionBtn.disabled = false;
+        testConnectionBtn.innerHTML = `
+            <svg class="icon-small btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Test Connection
+        `;
+    }
 }
 
 // ==================== Upload Functions ====================
@@ -156,7 +268,7 @@ function processImageFile(file) {
     state.selectedFile = file;
     state.croppedImageData = null;
     state.croppedImageMimeType = null;
-    state.generatedImages = [];
+    state.generatedImage = null;
     
     // Hide results and errors
     hideAllResultStates();
@@ -422,89 +534,124 @@ function handleCancelCrop() {
  * Handle generate button click - Main AI generation function
  */
 async function handleGenerate() {
+    console.log('🚀 Starting image generation process...');
+    
     if (!state.apiKey) {
+        console.log('❌ No API key provided');
         showError('Please enter your Gemini API key.');
         return;
     }
     
     if (!state.croppedImageData) {
+        console.log('❌ No cropped image data');
         showError('Please upload and crop an image first.');
         return;
     }
     
+    console.log('✅ All prerequisites met:', {
+        hasApiKey: !!state.apiKey,
+        hasImage: !!state.croppedImageData,
+        parameters: state.parameters,
+        imageMimeType: state.croppedImageMimeType
+    });
+    
     // Update UI to loading state
     state.isLoading = true;
-    state.generatedImages = [];
+    state.generatedImage = null;
     hideAllResultStates();
     resultLoading.classList.remove('hidden');
     generateBtn.disabled = true;
     resetBtn.disabled = true;
+    updateTestConnectionButton();
     
     try {
-        // Generate professional images using Gemini API
-        const images = await generateProfessionalImages(
+        // Generate single professional image using Gemini API
+        console.log('📡 Calling Gemini API for image generation...');
+        const image = await generateSingleImage(
             state.croppedImageData,
             state.croppedImageMimeType,
-            state.apiKey
+            state.apiKey,
+            state.parameters
         );
         
-        if (images && images.length > 0) {
-            state.generatedImages = images;
-            displayResults(images);
+        if (image) {
+            console.log('✅ Image generated successfully, length:', image.length);
+            state.generatedImage = image;
+            displayResult(image);
         } else {
+            console.log('❌ No image returned from API');
             showError('The AI could not process this image. Please try another one.');
         }
     } catch (err) {
-        console.error('Generation error:', err);
-        showError(err.message || 'An error occurred while generating the images. Please check your API key and try again.');
+        console.error('❌ Generation error:', err);
+        console.error('Error details:', {
+            name: err.name,
+            message: err.message,
+            stack: err.stack
+        });
+        showError(err.message || 'An error occurred while generating the image. Please check your API key and try again.');
     } finally {
+        console.log('🏁 Generation process completed');
         state.isLoading = false;
         generateBtn.disabled = false;
         resetBtn.disabled = false;
+        updateTestConnectionButton();
     }
 }
 
 /**
- * Professional suit styles for generation
+ * Parameter mappings
  */
-const professionalLooks = [
-    // Classic Style (3 images)
-    { style: 'classic', color: 'dark navy blue' },
-    { style: 'classic', color: 'classic black' },
-    { style: 'classic', color: 'light gray' },
-    // Modern Style (3 images)
-    { style: 'modern', color: 'charcoal gray' },
-    { style: 'modern', color: 'brown' },
-    { style: 'modern', color: 'dark green' },
-    // Minimalist Style (3 images)
-    { style: 'minimalist', color: 'burgundy' },
-    { style: 'minimalist', color: 'beige' },
-    { style: 'minimalist', color: 'deep charcoal' }
-];
+const dressStyleMapping = {
+    'navy-suit': 'Dress the person in a navy-blue three-piece suit made of lightly pleated fabric, paired with a crisp white professional shirt and a neatly tied Windsor knot tie.',
+    'navy-dress': 'Dress the person in a sleeveless navy blue round neck dress in the fabric that is a little bit pleated.',
+    'it-casual': 'Dress the person like an IT guy, slightly casual, not too formal.'
+};
+
+const backgroundMapping = {
+    'soft-grey': 'Use a soft grey background.',
+    'smoke-blue': 'Use a smoke blue background.',
+    'modern-office': 'Use a subtly blurred, neutral, out-of-focus professional modern office background.',
+    'studio-backdrop': 'Use a subtly blurred, neutral, out-of-focus professional modern studio backdrop background.'
+};
 
 /**
  * Generate the AI prompt for image transformation
  */
-function generatePrompt(style, suitColor) {
-    let styleDescription = "a classic, well-fitting business suit";
-    if (style === 'modern') {
-        styleDescription = "a modern, slim-fit business suit";
-    } else if (style === 'minimalist') {
-        styleDescription = "a minimalist and elegant business suit with clean lines";
+function generatePrompt(parameters) {
+    const { type, useCase, dressStyle, background, retouching, headTilting } = parameters;
+    
+    let prompt = `Transform this photo into a ${type}. The overall style should be polished, modern, and perfectly suited for ${useCase}. Perform the following edits:\n`;
+    
+    // Retouching section
+    if (retouching === 'true') {
+        prompt += `1. **Retouching**: Perform a subtle beauty retouch, with a specific focus on the eye area. It is essential to completely remove any dark circles, eye bags, and signs of tiredness from under the eyes. Brighten the eyes slightly for a more awake and alert appearance, while ensuring the result looks natural and professional. Also enhance the overall lighting and sharpness for a polished, high-quality result. It is crucial to preserve the person's natural facial features, hair, and expression.\n`;
     }
     
-    return `Please transform this photo into a professional headshot. Perform the following edits:
-1. **Retouching**: This is a key instruction. Perform a subtle beauty retouch, with a specific focus on the eye area. It is essential to completely remove any dark circles, eye bags, and signs of tiredness from under the eyes. Brighten the eyes slightly for a more awake and alert appearance, while ensuring the result looks natural and professional. Also enhance the overall lighting and sharpness for a polished, high-quality result. It is crucial to preserve the person's natural facial features, hair, and expression.
-2. **Attire**: This is a critical instruction. Change the person's clothing to a ${styleDescription}. The color of the suit is very important: it MUST be ${suitColor}. Do not use any other color.
-3. **Background**: The existing background MUST be replaced with a subtly blurred, neutral, out-of-focus professional background (like a modern office or a simple studio backdrop). This is crucial for creating a professional depth-of-field effect and ensuring the person is the only subject in focus.
-The final output must be only the modified image.`;
+    // Attire section
+    prompt += `2. **Attire**: ${dressStyleMapping[dressStyle]}\n`;
+    
+    // Background section
+    prompt += `3. **Background**: ${backgroundMapping[background]} Create a professional depth-of-field effect and ensure the person is the only subject in focus.\n`;
+    
+    // Head tilting section
+    if (headTilting === 'true') {
+        prompt += `4. **Head**: Tilt the head slightly for a natural, relaxed look that avoids stiffness.\n`;
+    }
+    
+    prompt += `The final output must be only the modified image.`;
+    
+    return prompt;
 }
 
 /**
  * Call Gemini API to generate a single professional image
  */
-async function generateSingleImage(base64ImageData, mimeType, apiKey, style, suitColor) {
-    const prompt = generatePrompt(style, suitColor);
+async function generateSingleImage(base64ImageData, mimeType, apiKey, parameters) {
+    console.log('🎯 Generating single image with parameters:', { parameters, mimeType });
+    
+    const prompt = generatePrompt(parameters);
+    console.log('📝 Generated prompt:', prompt);
     
     const requestBody = {
         contents: [{
@@ -525,113 +672,128 @@ async function generateSingleImage(base64ImageData, mimeType, apiKey, style, sui
         }
     };
     
-    const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        }
-    );
+    console.log('📦 Request body prepared:', {
+        hasImage: !!requestBody.contents[0].parts[0].inline_data.data,
+        imageDataLength: requestBody.contents[0].parts[0].inline_data.data.length,
+        promptLength: requestBody.contents[0].parts[1].text.length,
+        mimeType: requestBody.contents[0].parts[0].inline_data.mime_type
+    });
+    
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`;
+    console.log('🌐 Making API request to:', apiUrl.replace(apiKey, 'API_KEY_HIDDEN'));
+    
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    });
+    
+    console.log('📡 API Response received:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+        headers: Object.fromEntries(response.headers.entries())
+    });
     
     if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error?.message || 'Failed to generate image');
+        console.error('❌ API Error Response:', errorData);
+        throw new Error(errorData.error?.message || `API Error: ${response.status} ${response.statusText}`);
     }
     
     const data = await response.json();
+    console.log('📊 API Response data structure:', {
+        hasCandidates: !!data.candidates,
+        candidatesLength: data.candidates?.length || 0,
+        firstCandidate: data.candidates?.[0] ? {
+            hasContent: !!data.candidates[0].content,
+            hasParts: !!data.candidates[0].content?.parts,
+            partsLength: data.candidates[0].content?.parts?.length || 0
+        } : null
+    });
     
     // Extract image from response
     const parts = data.candidates?.[0]?.content?.parts || [];
-    for (const part of parts) {
-        if (part.inline_data) {
+    console.log('🔍 Searching for image in', parts.length, 'parts');
+    
+    for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        console.log(`Part ${i}:`, {
+            hasInlineData: !!part.inlineData,
+            hasInlineDataSnake: !!part.inline_data,
+            hasText: !!part.text,
+            mimeType: part.inlineData?.mimeType || part.inline_data?.mime_type,
+            dataLength: part.inlineData?.data?.length || part.inline_data?.data?.length
+        });
+        
+        // Check both camelCase and snake_case formats
+        if (part.inlineData) {
+            console.log('✅ Found image data in part', i, '(camelCase format)');
+            return part.inlineData.data;
+        } else if (part.inline_data) {
+            console.log('✅ Found image data in part', i, '(snake_case format)');
             return part.inline_data.data;
         }
     }
     
+    console.log('❌ No image data found in response');
+    console.log('Full response structure:', JSON.stringify(data, null, 2));
     return null;
 }
 
-/**
- * Generate all professional images (9 styles)
- */
-async function generateProfessionalImages(base64ImageData, mimeType, apiKey) {
-    const generatedImages = [];
-    
-    // Generate images sequentially to avoid rate-limiting
-    for (const look of professionalLooks) {
-        try {
-            const result = await generateSingleImage(
-                base64ImageData,
-                mimeType,
-                apiKey,
-                look.style,
-                look.color
-            );
-            
-            if (result) {
-                generatedImages.push(result);
-            }
-        } catch (err) {
-            console.error(`Error generating ${look.style} ${look.color}:`, err);
-            // Continue with other images even if one fails
-        }
-    }
-    
-    return generatedImages;
-}
 
 // ==================== Display Functions ====================
 
 /**
- * Display generated results in the grid
+ * Display generated result (single image)
  */
-function displayResults(images) {
+function displayResult(base64Image) {
     hideAllResultStates();
     resultSuccess.classList.remove('hidden');
     
     // Update count
-    resultCount.textContent = `${images.length} Headshots Ready!`;
+    resultCount.textContent = '1 Headshot Ready!';
     
     // Clear grid
     resultGrid.innerHTML = '';
     
-    // Add images to grid
-    images.forEach((base64Image, index) => {
-        const imageUrl = `data:image/png;base64,${base64Image}`;
-        
-        const item = document.createElement('div');
-        item.className = 'result-item';
-        
-        const img = document.createElement('img');
-        img.src = imageUrl;
-        img.alt = `Headshot ${index + 1}`;
-        
-        const overlay = document.createElement('div');
-        overlay.className = 'result-item-overlay';
-        
-        const actions = document.createElement('div');
-        actions.className = 'result-item-actions';
-        
-        const label = document.createElement('div');
-        label.className = 'style-label';
-        label.textContent = `Style ${index + 1}`;
-        
-        const downloadBtn = document.createElement('button');
-        downloadBtn.className = 'download-btn';
-        downloadBtn.textContent = 'Save';
-        downloadBtn.onclick = () => downloadImage(imageUrl, index);
-        
-        actions.appendChild(label);
-        actions.appendChild(downloadBtn);
-        overlay.appendChild(actions);
-        
-        item.appendChild(img);
-        item.appendChild(overlay);
-        resultGrid.appendChild(item);
-    });
+    // Add single image to grid
+    const imageUrl = `data:image/png;base64,${base64Image}`;
+    
+    const item = document.createElement('div');
+    item.className = 'result-item';
+    
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = 'Professional Headshot';
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'result-item-overlay';
+    
+    const actions = document.createElement('div');
+    actions.className = 'result-item-actions';
+    
+    const label = document.createElement('div');
+    label.className = 'style-label';
+    const { type, dressStyle, background } = state.parameters;
+    const dressStyleName = dressStyleSelect.options[dressStyleSelect.selectedIndex].text;
+    const backgroundName = backgroundSelect.options[backgroundSelect.selectedIndex].text;
+    label.textContent = `${type} - ${dressStyleName}`;
+    
+    const downloadBtn = document.createElement('button');
+    downloadBtn.className = 'download-btn';
+    downloadBtn.textContent = 'Save';
+    downloadBtn.onclick = () => downloadImage(imageUrl, 0);
+    
+    actions.appendChild(label);
+    actions.appendChild(downloadBtn);
+    overlay.appendChild(actions);
+    
+    item.appendChild(img);
+    item.appendChild(overlay);
+    resultGrid.appendChild(item);
     
     updateResetButton();
 }
@@ -666,8 +828,8 @@ function updateResultPlaceholder() {
         title.textContent = 'Ready to generate!';
         text.textContent = 'Click the generate button below';
     } else {
-        title.textContent = 'Your headshots will appear here';
-        text.textContent = 'Upload a photo to get started';
+        title.textContent = 'Your headshot will appear here';
+        text.textContent = 'Upload a photo and customize your settings to get started';
     }
 }
 
@@ -686,38 +848,13 @@ function downloadImage(imageUrl, index) {
 }
 
 /**
- * Download all images as a ZIP file
+ * Download the single generated image
  */
-async function handleDownloadAll() {
-    if (!state.generatedImages || state.generatedImages.length === 0) return;
+function handleDownloadAll() {
+    if (!state.generatedImage) return;
     
-    // Create a new ZIP file
-    const zip = new JSZip();
-    
-    // Add all images to ZIP
-    for (let i = 0; i < state.generatedImages.length; i++) {
-        const base64Image = state.generatedImages[i];
-        const imageUrl = `data:image/png;base64,${base64Image}`;
-        
-        try {
-            const response = await fetch(imageUrl);
-            const blob = await response.blob();
-            zip.file(`headshot-${i + 1}.png`, blob);
-        } catch (err) {
-            console.error(`Error adding image ${i + 1} to ZIP:`, err);
-        }
-    }
-    
-    // Generate and download ZIP
-    zip.generateAsync({ type: 'blob' }).then(function(content) {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(content);
-        link.download = 'headshots.zip';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(link.href);
-    });
+    const imageUrl = `data:image/png;base64,${state.generatedImage}`;
+    downloadImage(imageUrl, 0);
 }
 
 // ==================== UI Update Functions ====================
@@ -732,10 +869,18 @@ function updateGenerateButton() {
 }
 
 /**
+ * Update test connection button state
+ */
+function updateTestConnectionButton() {
+    const hasApiKey = state.apiKey.length > 0;
+    testConnectionBtn.disabled = !hasApiKey || state.isLoading;
+}
+
+/**
  * Update reset button visibility
  */
 function updateResetButton() {
-    const shouldShow = state.croppedImageData || state.generatedImages.length > 0;
+    const shouldShow = state.croppedImageData || state.generatedImage !== null;
     resetBtn.classList.toggle('hidden', !shouldShow);
 }
 
@@ -747,11 +892,29 @@ function handleReset() {
     state.selectedFile = null;
     state.croppedImageData = null;
     state.croppedImageMimeType = null;
-    state.generatedImages = [];
+    state.generatedImage = null;
     state.isLoading = false;
+    
+    // Reset parameters to defaults
+    state.parameters = {
+        type: 'professional headshot',
+        useCase: 'passport',
+        dressStyle: 'navy-suit',
+        background: 'soft-grey',
+        retouching: 'true',
+        headTilting: 'true'
+    };
     
     // Reset file input
     fileInput.value = '';
+    
+    // Reset parameter selections
+    typeSelect.value = state.parameters.type;
+    useCaseSelect.value = state.parameters.useCase;
+    dressStyleSelect.value = state.parameters.dressStyle;
+    backgroundSelect.value = state.parameters.background;
+    retouchingSelect.value = state.parameters.retouching;
+    headTiltingSelect.value = state.parameters.headTilting;
     
     // Reset upload area
     uploadPlaceholder.classList.remove('hidden');
@@ -789,8 +952,17 @@ function init() {
         }
     });
     
+    // Set default parameter values
+    typeSelect.value = state.parameters.type;
+    useCaseSelect.value = state.parameters.useCase;
+    dressStyleSelect.value = state.parameters.dressStyle;
+    backgroundSelect.value = state.parameters.background;
+    retouchingSelect.value = state.parameters.retouching;
+    headTiltingSelect.value = state.parameters.headTilting;
+    
     // Initial UI state
     updateGenerateButton();
+    updateTestConnectionButton();
     updateResetButton();
     updateResultPlaceholder();
 }
