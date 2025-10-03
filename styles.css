@@ -863,15 +863,17 @@ body {
     }
     
     .slide-wrapper {
-        min-height: 450px;
+        min-height: 500px;
     }
     
     .slide {
-        min-height: 450px;
+        min-height: 500px;
     }
     
     .card {
-        min-height: 450px;
+        height: 500px;
+        min-height: 500px;
+        max-height: 500px;
     }
     
     .upload-area,
@@ -891,7 +893,9 @@ body {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     border: 1px solid #e5e7eb;
     width: 100%;
-    min-height: 500px;
+    height: 550px;
+    min-height: 550px;
+    max-height: 550px;
     display: flex;
     flex-direction: column;
 }
@@ -940,6 +944,8 @@ body {
 .upload-area {
     width: 100%;
     height: 400px;
+    min-height: 400px;
+    max-height: 400px;
     border: 2px dashed #d1d5db;
     border-radius: 1rem;
     display: flex;
@@ -1024,16 +1030,26 @@ body {
 }
 
 .image-preview {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    overflow: auto;
 }
 
 .image-preview img {
+    max-width: 100%;
+    max-height: 100%;
     width: auto;
-    height: 350px;
+    height: auto;
     object-fit: contain;
     border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .image-overlay {
@@ -1444,9 +1460,8 @@ body {
 /* ==================== */
 
 .footer {
-    margin-top: 2rem;
+    margin-top: 4rem;
     text-align: center;
-    padding-bottom: 2rem;
 }
 
 .footer-content {
@@ -1591,21 +1606,25 @@ body {
 /* Scrollbar Styling    */
 /* ==================== */
 
-.result-grid::-webkit-scrollbar {
+.result-grid::-webkit-scrollbar,
+.upload-area::-webkit-scrollbar {
     width: 8px;
 }
 
-.result-grid::-webkit-scrollbar-track {
+.result-grid::-webkit-scrollbar-track,
+.upload-area::-webkit-scrollbar-track {
     background: #f3f4f6;
     border-radius: 4px;
 }
 
-.result-grid::-webkit-scrollbar-thumb {
+.result-grid::-webkit-scrollbar-thumb,
+.upload-area::-webkit-scrollbar-thumb {
     background: #d1d5db;
     border-radius: 4px;
 }
 
-.result-grid::-webkit-scrollbar-thumb:hover {
+.result-grid::-webkit-scrollbar-thumb:hover,
+.upload-area::-webkit-scrollbar-thumb:hover {
     background: #9ca3af;
 }
 
