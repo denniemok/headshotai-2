@@ -638,10 +638,14 @@ function initCropBoxDrag() {
                 const newWidth = Math.max(minSize, startBoxWidth - dx);
                 const newHeight = Math.max(minSize, startBoxHeight - dy);
                 
-                state.cropData.width = newWidth;
-                state.cropData.height = newHeight;
-                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - newWidth));
-                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - newHeight));
+                // Constrain by available space
+                const maxWidth = startBoxX + startBoxWidth - margin;
+                const maxHeight = startBoxY + startBoxHeight - margin;
+                
+                state.cropData.width = Math.min(newWidth, maxWidth);
+                state.cropData.height = Math.min(newHeight, maxHeight);
+                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - state.cropData.width));
+                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - state.cropData.height));
             } else if (handleClass.includes('ne')) {
                 // Northeast - adjust width and height independently
                 const isMobile = window.innerWidth <= 768;
