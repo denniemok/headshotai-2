@@ -450,6 +450,9 @@ function processImageFile(file) {
         img.src = e.target.result;
     };
     reader.readAsDataURL(file);
+    
+    // Clear the file input value to allow selecting the same file again
+    fileInput.value = '';
 }
 
 // ==================== Cropper Functions ====================
