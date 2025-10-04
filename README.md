@@ -1,10 +1,13 @@
 # 🎯 HeadshotAI 2
-
 <br>
 
 <div align="center">
 
-**Transform any photo into a professional headshot in seconds.<br>Change attire, hair style, and background with 10+ presets.<br>Tilt head, apply retouching, edit prompt, and crop image.<br>ALL IN THIS SIMPLE WEB APP!**
+**Image Generator | Prompt Generator**
+
+**Transform any photos into professional headshots in seconds.<br>
+Create prompts to convert photos into professional headshots.<br>
+Adjust attire, hair style, shot size, and background with 10+ presets.<br>Tilt head, apply retouching, edit prompt, and crop image.**
 
 _Perfect for LinkedIn, Social Media, Resume/CV, Portfolios,<br>
 Passport, Driver License, Email Signature, Company Website, etc._
@@ -22,13 +25,13 @@ Passport, Driver License, Email Signature, Company Website, etc._
 
 <table>
 <tr>
-<td width=150px><img src="https://i.imgur.com/OqORmOp.png"></td>
-<td width=150px><img src="https://i.imgur.com/RmdS2Ee.png"></td>
-<td width=150px><img src="https://i.imgur.com/VN4PbTG.png"></td>
-<td width=150px><img src="https://i.imgur.com/uXQF55t.png"></td>
-<td width=150px><img src="https://i.imgur.com/H5ug1tz.png"></td>
-<td width=150px><img src="https://i.imgur.com/Z7Iq8Bk.png"></td>
-<td width=150px><img src="https://i.imgur.com/RlSxTh8.png"></td>
+<td width=120px><img src="https://i.imgur.com/OqORmOp.png"></td>
+<td width=120px><img src="https://i.imgur.com/RmdS2Ee.png"></td>
+<td width=120px><img src="https://i.imgur.com/VN4PbTG.png"></td>
+<td width=120px><img src="https://i.imgur.com/uXQF55t.png"></td>
+<td width=120px><img src="https://i.imgur.com/H5ug1tz.png"></td>
+<td width=120px><img src="https://i.imgur.com/Z7Iq8Bk.png"></td>
+<td width=120px><img src="https://i.imgur.com/RlSxTh8.png"></td>
 </tr>
 <tr align=center>
 <td>
@@ -47,13 +50,13 @@ Passport, Driver License, Email Signature, Company Website, etc._
 
 <table>
 <tr>
-<td width=150px><img src="https://i.imgur.com/RBXBMPu.png"></td>
-<td width=150px><img src="https://i.imgur.com/7mfyXZi.png"></td>
-<td width=150px><img src="https://i.imgur.com/fAqHWYu.png"></td>
-<td width=150px><img src="https://i.imgur.com/bQNU5Aw.png"></td>
-<td width=150px><img src="https://i.imgur.com/8SYaECt.png"></td>
-<td width=150px><img src="https://i.imgur.com/XxTEGpo.png"></td>
-<td width=150px><img src="https://i.imgur.com/RkTxQaF.png"></td>
+<td width=120px><img src="https://i.imgur.com/RBXBMPu.png"></td>
+<td width=120px><img src="https://i.imgur.com/7mfyXZi.png"></td>
+<td width=120px><img src="https://i.imgur.com/fAqHWYu.png"></td>
+<td width=120px><img src="https://i.imgur.com/bQNU5Aw.png"></td>
+<td width=120px><img src="https://i.imgur.com/8SYaECt.png"></td>
+<td width=120px><img src="https://i.imgur.com/XxTEGpo.png"></td>
+<td width=120px><img src="https://i.imgur.com/RkTxQaF.png"></td>
 </tr>
 <tr align=center>
 <td>
@@ -78,16 +81,16 @@ Passport, Driver License, Email Signature, Company Website, etc._
 
 | 🚀 **Instant Results** | 🔒 **Privacy First** | 🎨 **Easy Customisation** |
 |:---:|:---:|:---:|
-| Just open and run | Runs locally | Various presets |
-| No complex setup | No data collection | Croppable image |
+| Just open and run | Runs locally | Various styles / presets |
+| No complex setup | No data collection | Simple image cropper |
 | Generate in seconds	| Use trusted API | Customisable prompt |
 
 
 
-- 🤖 **AI-Powered Enhancement** - Google Gemini AI for professional results
-- ✂️ **Smart Image Cropping** - Built-in cropper for perfect 1:1 aspect ratio headshots
-- 🎨 **Multiple Professional Styles** - Various suit styles and backgrounds
-- 🔧 **Customizable Prompts** - Advanced prompt editor for fine-tuning
+- 🤖 **AI-Powered** - Google Gemini AI for professional results
+- ✂️ **Image Cropping** - Built-in cropper for perfect headshots
+- 🎨 **Multiple Styles** - Various attire, hair styles, shot sizes and backgrounds
+- 🔧 **Customisable Prompts** - Advanced prompt editor for fine-tuning
 
 <div align="center">
 
@@ -122,6 +125,8 @@ Passport, Driver License, Email Signature, Company Website, etc._
 3. Adjust the crop area to frame your face perfectly
 4. Choose from professional styles and backgrounds
 5. Click the generate button
+
+Even if you can't obtain an API key, you can still use this as a prompt generator.
 
 <br>
 
@@ -235,6 +240,7 @@ This project is released under the [MIT License](LICENSE).
 
 
 </div>
+
 
 
 
