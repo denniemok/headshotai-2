@@ -5,9 +5,9 @@
 
 <br>
 
-**Transform any photos into professional headshots in seconds.<br>
-Create prompts to convert photos into professional headshots.<br>
-Adjust attire, hair style, shot size, and background with 10+ presets.<br>Tilt head, apply retouching, edit prompt, and crop image.**
+**Generate professional headshots from any photo, fast.<br>
+Customize looks with 10+ presets for attire, hair, shot size,<br>
+and background. Includes prompt generation.**
 
 _Perfect for LinkedIn, Social Media, Resume/CV, Portfolios,<br>
 Passport, Driver License, Email Signature, Company Website, etc._
@@ -242,6 +242,7 @@ This project is released under the [MIT License](LICENSE).
 
 
 </div>
+
 
 
 
