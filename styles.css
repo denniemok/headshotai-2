@@ -63,11 +63,16 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
-    background: var(--bg-primary);
+    background: linear-gradient(135deg, 
+        var(--bg-primary) 0%, 
+        var(--bg-secondary) 25%, 
+        var(--bg-tertiary) 50%, 
+        var(--bg-secondary) 75%, 
+        var(--bg-primary) 100%);
     color: var(--text-primary);
     position: relative;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ==================== */
@@ -90,28 +95,58 @@ body {
 .bg-circle-1 {
     top: -300px;
     right: -300px;
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(to bottom right, rgba(191, 219, 254, 0.3), rgba(221, 214, 254, 0.3));
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.15) 0%, 
+        rgba(147, 51, 234, 0.15) 50%, 
+        rgba(236, 72, 153, 0.15) 100%);
     transition: background 0.3s ease;
+    animation: float 6s ease-in-out infinite;
 }
 
 .bg-circle-2 {
     bottom: -300px;
     left: -300px;
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(to bottom right, rgba(221, 214, 254, 0.3), rgba(251, 207, 232, 0.3));
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, 
+        rgba(236, 72, 153, 0.15) 0%, 
+        rgba(147, 51, 234, 0.15) 50%, 
+        rgba(59, 130, 246, 0.15) 100%);
     transition: background 0.3s ease;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+/* Floating animation for background circles */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: translateY(-10px) translateX(-10px);
+    }
+    75% {
+        transform: translateY(-30px) translateX(5px);
+    }
 }
 
 /* Dark mode background decoration */
 [data-theme="dark"] .bg-circle-1 {
-    background: linear-gradient(to bottom right, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2));
+    background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.25) 0%, 
+        rgba(147, 51, 234, 0.25) 50%, 
+        rgba(236, 72, 153, 0.25) 100%);
 }
 
 [data-theme="dark"] .bg-circle-2 {
-    background: linear-gradient(to bottom right, rgba(147, 51, 234, 0.2), rgba(236, 72, 153, 0.2));
+    background: linear-gradient(135deg, 
+        rgba(236, 72, 153, 0.25) 0%, 
+        rgba(147, 51, 234, 0.25) 50%, 
+        rgba(59, 130, 246, 0.25) 100%);
 }
 
 /* ==================== */
