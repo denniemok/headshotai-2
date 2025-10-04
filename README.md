@@ -22,18 +22,19 @@ Passport, Driver License, Email Signature, Company Website, etc._
 
 <table>
 <tr>
-<td width=100px><img src="https://i.imgur.com/OqORmOp.png"></td>
-<td width=100px><img src="https://i.imgur.com/RmdS2Ee.png"></td>
-<td width=100px><img src="https://i.imgur.com/VN4PbTG.png"></td>
-<td width=100px><img src="https://i.imgur.com/uXQF55t.png"></td>
-<td width=100px><img src="https://i.imgur.com/H5ug1tz.png"></td>
-<td width=100px><img src="https://i.imgur.com/Z7Iq8Bk.png"></td>
-<td width=100px><img src="https://i.imgur.com/RlSxTh8.png"></td>
+<td width=150px><img src="https://i.imgur.com/OqORmOp.png"></td>
+<td width=150px><img src="https://i.imgur.com/RmdS2Ee.png"></td>
+<td width=150px><img src="https://i.imgur.com/VN4PbTG.png"></td>
+<td width=150px><img src="https://i.imgur.com/uXQF55t.png"></td>
+<td width=150px><img src="https://i.imgur.com/H5ug1tz.png"></td>
+<td width=150px><img src="https://i.imgur.com/Z7Iq8Bk.png"></td>
+<td width=150px><img src="https://i.imgur.com/RlSxTh8.png"></td>
 </tr>
 <tr align=center>
 <td>
   
 [Original](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-male/)
+
 </td>
 <td>LinkedIn</td>
 <td>LinkedIn</td>
@@ -46,13 +47,13 @@ Passport, Driver License, Email Signature, Company Website, etc._
 
 <table>
 <tr>
-<td width=100px><img src="https://i.imgur.com/RBXBMPu.png"></td>
-<td width=100px><img src="https://i.imgur.com/7mfyXZi.png"></td>
-<td width=100px><img src="https://i.imgur.com/fAqHWYu.png"></td>
-<td width=100px><img src="https://i.imgur.com/bQNU5Aw.png"></td>
-<td width=100px><img src="https://i.imgur.com/8SYaECt.png"></td>
-<td width=100px><img src="https://i.imgur.com/XxTEGpo.png"></td>
-<td width=100px><img src="https://i.imgur.com/RkTxQaF.png"></td>
+<td width=150px><img src="https://i.imgur.com/RBXBMPu.png"></td>
+<td width=150px><img src="https://i.imgur.com/7mfyXZi.png"></td>
+<td width=150px><img src="https://i.imgur.com/fAqHWYu.png"></td>
+<td width=150px><img src="https://i.imgur.com/bQNU5Aw.png"></td>
+<td width=150px><img src="https://i.imgur.com/8SYaECt.png"></td>
+<td width=150px><img src="https://i.imgur.com/XxTEGpo.png"></td>
+<td width=150px><img src="https://i.imgur.com/RkTxQaF.png"></td>
 </tr>
 <tr align=center>
 <td>
