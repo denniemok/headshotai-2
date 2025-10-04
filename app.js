@@ -519,11 +519,17 @@ function updateCropBox() {
     const offsetX = canvasRect.left - containerRect.left;
     const offsetY = canvasRect.top - containerRect.top;
     
-    // Position crop box relative to canvas position in container
-    cropBox.style.left = (offsetX + state.cropData.startX) + 'px';
-    cropBox.style.top = (offsetY + state.cropData.startY) + 'px';
-    cropBox.style.width = state.cropData.width + 'px';
-    cropBox.style.height = state.cropData.height + 'px';
+    // Calculate the actual image position within the canvas
+    // The image is drawn at (0,0) but might be scaled, so we need to account for that
+    const imageScale = Math.min(canvasRect.width / cropCanvas.width, canvasRect.height / cropCanvas.height);
+    const imageOffsetX = (canvasRect.width - cropCanvas.width * imageScale) / 2;
+    const imageOffsetY = (canvasRect.height - cropCanvas.height * imageScale) / 2;
+    
+    // Position crop box relative to the actual image position
+    cropBox.style.left = (offsetX + imageOffsetX + state.cropData.startX * imageScale) + 'px';
+    cropBox.style.top = (offsetY + imageOffsetY + state.cropData.startY * imageScale) + 'px';
+    cropBox.style.width = (state.cropData.width * imageScale) + 'px';
+    cropBox.style.height = (state.cropData.height * imageScale) + 'px';
 }
 
 /**
