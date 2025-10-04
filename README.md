@@ -1,9 +1,9 @@
-# 🎯 HeadshotAI 2
-<br>
-
 <div align="center">
 
+# 🎯 HeadshotAI 2
 **Image Generator | Prompt Generator**
+
+<br>
 
 **Transform any photos into professional headshots in seconds.<br>
 Create prompts to convert photos into professional headshots.<br>
@@ -240,6 +240,7 @@ This project is released under the [MIT License](LICENSE).
 
 
 </div>
+
 
 
 
