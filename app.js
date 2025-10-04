@@ -947,6 +947,11 @@ const hairStyleMapping = {
     'casual': 'Style the hair in a natural, relaxed manner that looks effortless and approachable. Keep the styling simple and comfortable while maintaining a clean appearance.',
     'formal': 'Style the hair in a formal, well-groomed manner suitable for formal occasions. Ensure the hair looks sophisticated, elegant, and perfectly styled for professional or formal settings.',
     'modern': 'Style the hair in a contemporary, modern way that reflects current trends while maintaining professionalism. Create a stylish, up-to-date look that is both fashionable and appropriate.',
+    'male-1': 'Style the hair in a classic side part, neatly combed and slightly tapered on the sides for a timeless and professional look.',
+    'male-2': 'Style the hair in a modern textured crop, with a clean fade on the sides and a slightly longer, textured top for a contemporary yet professional appearance.',
+    'male-3': 'Style the hair in a slicked-back fashion, using a light-hold product to keep it off the face and maintain a polished, sophisticated finish.',
+    'male-4': 'Style the hair in a short, neat business cut, with minimal length on the sides and back, and a slightly longer top that is easily managed and always looks sharp.',
+    'male-5': 'Style the hair in a subtle quiff, with the front lifted slightly for volume and the sides kept short and tidy, offering a confident and stylish professional aesthetic.',
     'female-1': 'Style the hair with long, soft, natural-looking wavy hair and straight-cut bangs across the forehead, adding volume and movement.',
     'female-2': 'Style the hair in a neat, pulled-back bun or low chignon with soft strands framing the face for a classic and professional look.',
     'female-3': 'Style the hair in a sleek, high ponytail, ensuring all strands are smoothly pulled back and secured for a polished and efficient professional appearance.',
@@ -955,12 +960,21 @@ const hairStyleMapping = {
 };
 
 const dressStyleMapping = {
-    'navy-suit': 'Dress the person in a navy-blue three-piece suit made of lightly pleated fabric, paired with a crisp white professional shirt and a neatly tied Windsor knot tie.',
-    'navy-dress': 'Dress the person in a sleeveless navy blue round neck dress made of lightly pleated fabric.',
     'grey-sweater': 'Dress the person in a dark grey crew-neck sweater over a light blue collared shirt.',
     'black-suit': 'Dress the person in a black, modern, slim-fit business suit.',
     'grey-suit': 'Dress the person in a grey, elegant business suit with clean lines.',
-    'casual': 'Dress the person in a casual, relaxed, everyday attire.'
+    'casual': 'Dress the person in a casual, relaxed, everyday attire.',
+    'female-1': 'Dress the person in a tailored charcoal grey pantsuit, featuring a single-button blazer and slim-fit trousers, paired with a silk blouse in a complementary pastel shade.',
+    'female-2': 'Dress the person in a knee-length black sheath dress made of a structured, wrinkle-resistant fabric, accessorized with a delicate silver necklace and stud earrings.',
+    'female-3': 'Dress the person in a sophisticated cream-colored midi skirt with a subtle A-line silhouette, paired with a fitted navy blue knit top and a tailored blazer.',
+    'female-4': 'Dress the person in a crisp white button-down shirt, tucked into high-waisted dark wash trousers, and layered with a fitted, open-front cardigan in a deep burgundy.',
+    'female-5': 'Dress the person in a professional navy blue pencil skirt, paired with a light blue collared shirt and a tailored, unbuttoned blazer in a matching navy or a contrasting grey.',
+    'female-0': 'Dress the person in a sleeveless navy blue round neck dress made of lightly pleated fabric.',
+    'male-0': 'Dress the person in a navy-blue three-piece suit made of lightly pleated fabric, paired with a crisp white professional shirt and a neatly tied Windsor knot tie.',
+    'male-1': 'Dress the person in a classic navy blue two-piece suit, made of a fine wool blend, paired with a light blue dress shirt and a striped silk tie.',
+    'male-2': 'Dress the person in tailored grey trousers, a crisp white dress shirt, a dark blue V-neck sweater, and polished leather loafers.',
+    'male-3': 'Dress the person in a charcoal pinstripe suit, a white spread-collar shirt, and a solid red power tie, completed with a pocket square.',
+    'male-4': 'Dress the person in a smart casual ensemble: dark wash, well-fitted chinos, a light-colored button-down shirt with sleeves rolled up once, and a tailored sport coat in a complementary color.'
 };
 
 const backgroundMapping = {
