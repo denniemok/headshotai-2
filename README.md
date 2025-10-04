@@ -4,10 +4,10 @@
 
 <div align="center">
 
-**Transform any photo into a professional headshot in seconds.**
+**Transform any photo into a professional headshot in seconds.<br>Change attire, hair style, and background with 10+ presets.<br>Tilt head, apply retouching, edit prompt, and crop image.<br>ALL IN THIS SIMPLE WEB APP!**
 
 _Perfect for LinkedIn, Social Media, Resume/CV, Portfolios,<br>
-Passport, ID Card, Driver License, Email Signature, Company Website, etc._
+Passport, Driver License, Email Signature, Company Website, etc._
 
 **[🌐 Live Demo](https://denniemok.github.io/headshotai-2)** • **[📥 Download](https://github.com/denniemok/headshotai-2/archive/refs/heads/main.zip)** • **[📖 Documentation](#-quick-start)**
 
@@ -107,6 +107,24 @@ AI Models from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asi
 
 <br>
 
+## 💡 Pro Tips
+
+### Best Photos to Use
+- ✅ Clear, well-lit face photo
+- ✅ Front-facing (not profile)
+- ✅ Good resolution (at least 500x500px)
+- ✅ Minimal background clutter
+- ❌ Avoid sunglasses or hats
+- ❌ Avoid group photos
+
+### Getting the Best Results
+- 🎯 Center your face in the crop area
+- 🎯 Include some shoulder area
+- 🎯 Make sure eyes are clearly visible
+- 🎯 Use natural lighting in original photo
+
+<br>
+
 ## 🛠️ File Structure
 
 ```
@@ -115,32 +133,6 @@ AI Models from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asi
 ├── ⚙️ app.js              # Application logic and API integration
 └── 📖 README.md           # This documentation
 ```
-
-<br>
-
-## 🎨 Customisation
-
-### Use Cases
-- **Professional Headshot** - Classic business portrait
-- **LinkedIn Style** - Perfect for professional networking
-- **Passport Photo** - Official document-ready
-- **Casual Portrait** - Relaxed professional look
-
-### Dress Styles
-- **Navy Blue Suit** - Three-piece with Windsor knot tie
-- **Navy Blue Dress** - Professional women's attire
-- **Grey Sweater** - Modern casual professional
-- **Black Suit** - Classic formal business attire
-- **Grey Suit** - Minimalist and elegant
-- **Casual Outfit** - Relaxed professional style
-
-### Background Options
-- **Plain White** - Clean and professional
-- **Soft Grey** - Subtle and modern
-- **Smoke Blue** - Contemporary professional
-- **Modern Office** - Blurred office environment
-- **Studio Backdrop** - Professional photography setting
-- **Study Room** - Academic and intellectual
 
 <br>
 
@@ -163,8 +155,9 @@ AI Models from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asi
 
 <details>
 <summary><strong>🔑 API Key Issues</strong></summary>
+<br>
 
-**"Connection Failed"**
+**Connection failed**
 - ✅ Ensure your key is correct and active
 - ✅ Wait a moment and try again (free tier has rate limits)
 - ✅ Ensure you have access to Gemini API
@@ -173,8 +166,9 @@ AI Models from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asi
 
 <details>
 <summary><strong>📸 Image Processing Issues</strong></summary>
+<br>
 
-**"Failed to generate image"**
+**Failed to generate image**
 - ✅ Verify your API key is valid
 - ✅ Try a different photo or format
 - ✅ Wait a moment and try again (rate limiting)
@@ -188,7 +182,8 @@ AI Models from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asi
 
 <details>
 <summary><strong>💾 Cropper / Download Issues</strong></summary>
-
+<br>
+  
 **Cropper not appearing**
 - ✅ Enable JavaScript in your browser
 - ✅ Try refreshing the page
@@ -216,12 +211,13 @@ This project is built upon and inspired by:
 
 <div align="center">
 
-This project is released under the terms of the [MIT License](LICENSE).
+This project is released under the [MIT License](LICENSE).
 
 **© 2025 HeadshotAI 2**
 
 
 </div>
+
 
 
 
