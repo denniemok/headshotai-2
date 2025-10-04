@@ -516,6 +516,23 @@ body {
     font-weight: 600;
 }
 
+/* Optgroup styling for hair style sections */
+.parameter-select optgroup {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem 0.25rem 0.75rem;
+    border-bottom: 1px solid var(--border-primary);
+    margin-bottom: 0.25rem;
+}
+
+.parameter-select optgroup option {
+    padding-left: 1rem;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
 /* Enhanced dropdown appearance for better consistency */
 .parameter-select {
     -webkit-appearance: none;

@@ -946,7 +946,12 @@ const hairStyleMapping = {
     'professional': 'Style the hair in a clean, professional manner that looks polished and well-groomed. Ensure the hair is neat, styled appropriately for a business setting, and enhances the professional appearance.',
     'casual': 'Style the hair in a natural, relaxed manner that looks effortless and approachable. Keep the styling simple and comfortable while maintaining a clean appearance.',
     'formal': 'Style the hair in a formal, well-groomed manner suitable for formal occasions. Ensure the hair looks sophisticated, elegant, and perfectly styled for professional or formal settings.',
-    'modern': 'Style the hair in a contemporary, modern way that reflects current trends while maintaining professionalism. Create a stylish, up-to-date look that is both fashionable and appropriate.'
+    'modern': 'Style the hair in a contemporary, modern way that reflects current trends while maintaining professionalism. Create a stylish, up-to-date look that is both fashionable and appropriate.',
+    'female-1': 'Style the hair with long, soft, natural-looking wavy hair and straight-cut bangs across the forehead, adding volume and movement.',
+    'female-2': 'Style the hair in a neat, pulled-back bun or low chignon with soft strands framing the face for a classic and professional look.',
+    'female-3': 'Style the hair in a sleek, high ponytail, ensuring all strands are smoothly pulled back and secured for a polished and efficient professional appearance.',
+    'female-4': 'Style the hair in a sophisticated, sharply cut side-parted bob that frames the face elegantly, projecting a confident and timeless professional image.',
+    'female-5': 'Style the hair in a refined half-up, half-down look, featuring a subtle, neatly executed twist or braid at the crown to keep the front clear while allowing the remaining length to flow gracefully, balancing elegance with approachability.'
 };
 
 const dressStyleMapping = {
