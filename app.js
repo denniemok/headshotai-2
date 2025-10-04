@@ -505,9 +505,11 @@ function openCropper(img) {
     const ctx = cropCanvas.getContext('2d');
     ctx.drawImage(img, 0, 0, width, height);
     
-    // Initialize crop box (90% of canvas, centered, square aspect ratio)
+    // Initialize crop box (80% of canvas, centered, 1:1 aspect ratio)
     // Use smaller size on mobile to ensure handles stay within bounds
-    const cropSize = Math.min(width, height) * (isSmallPhone ? 0.6 : isMobile ? 0.7 : 0.9);
+    const cropScale = isSmallPhone ? 0.6 : isMobile ? 0.7 : 0.8;
+    const cropSize = Math.min(width, height) * cropScale;
+    
     state.cropData.width = cropSize;
     state.cropData.height = cropSize;
     state.cropData.startX = (width - cropSize) / 2;
@@ -614,56 +616,62 @@ function initCropBoxDrag() {
             const handleClass = resizeHandle.className;
             
             if (handleClass.includes('se')) {
-                // Southeast - increase size
-                const delta = Math.max(dx, dy); // Use max to maintain square aspect
+                // Southeast - increase size (independent width/height)
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
-                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
-                const newSize = Math.max(minSize, startBoxWidth + delta);
-                const maxSize = Math.min(cropCanvas.width - startBoxX - margin, cropCanvas.height - startBoxY - margin);
-                state.cropData.width = Math.min(newSize, maxSize);
-                state.cropData.height = state.cropData.width;
+                const minSize = isMobile ? 40 : 30;
+                const margin = isMobile ? 2 : 1;
+                
+                const newWidth = Math.max(minSize, startBoxWidth + dx);
+                const newHeight = Math.max(minSize, startBoxHeight + dy);
+                
+                const maxWidth = cropCanvas.width - startBoxX - margin;
+                const maxHeight = cropCanvas.height - startBoxY - margin;
+                
+                state.cropData.width = Math.min(newWidth, maxWidth);
+                state.cropData.height = Math.min(newHeight, maxHeight);
             } else if (handleClass.includes('nw')) {
-                // Northwest - decrease size and move position
-                const delta = Math.min(dx, dy);
+                // Northwest - decrease size and move position (independent width/height)
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
-                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
-                const newSize = Math.max(minSize, startBoxWidth - delta);
-                state.cropData.width = newSize;
-                state.cropData.height = newSize;
-                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - newSize));
-                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - newSize));
+                const minSize = isMobile ? 40 : 30;
+                const margin = isMobile ? 2 : 1;
+                
+                const newWidth = Math.max(minSize, startBoxWidth - dx);
+                const newHeight = Math.max(minSize, startBoxHeight - dy);
+                
+                state.cropData.width = newWidth;
+                state.cropData.height = newHeight;
+                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - newWidth));
+                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - newHeight));
             } else if (handleClass.includes('ne')) {
-                // Northeast
-                const deltaX = dx;
-                const deltaY = -dy;
-                const delta = Math.max(deltaX, deltaY);
+                // Northeast - adjust width and height independently
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
-                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
-                const newSize = Math.max(minSize, startBoxWidth + delta);
-                const maxSizeX = cropCanvas.width - startBoxX - margin;
-                const maxSizeY = startBoxY + startBoxHeight - margin;
-                const finalSize = Math.min(newSize, maxSizeX, maxSizeY);
-                state.cropData.width = finalSize;
-                state.cropData.height = finalSize;
-                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - finalSize));
+                const minSize = isMobile ? 40 : 30;
+                const margin = isMobile ? 2 : 1;
+                
+                const newWidth = Math.max(minSize, startBoxWidth + dx);
+                const newHeight = Math.max(minSize, startBoxHeight - dy);
+                
+                const maxWidth = cropCanvas.width - startBoxX - margin;
+                const maxHeight = startBoxY + startBoxHeight - margin;
+                
+                state.cropData.width = Math.min(newWidth, maxWidth);
+                state.cropData.height = Math.min(newHeight, maxHeight);
+                state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - state.cropData.height));
             } else if (handleClass.includes('sw')) {
-                // Southwest
-                const deltaX = -dx;
-                const deltaY = dy;
-                const delta = Math.max(deltaX, deltaY);
+                // Southwest - adjust width and height independently
                 const isMobile = window.innerWidth <= 768;
-                const minSize = isMobile ? 40 : 30; // Reduced minimum size to allow edge access
-                const margin = isMobile ? 2 : 1; // Minimal margin to allow edge access
-                const newSize = Math.max(minSize, startBoxWidth + delta);
-                const maxSizeX = startBoxX + startBoxWidth - margin;
-                const maxSizeY = cropCanvas.height - startBoxY - margin;
-                const finalSize = Math.min(newSize, maxSizeX, maxSizeY);
-                state.cropData.width = finalSize;
-                state.cropData.height = finalSize;
-                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - finalSize));
+                const minSize = isMobile ? 40 : 30;
+                const margin = isMobile ? 2 : 1;
+                
+                const newWidth = Math.max(minSize, startBoxWidth - dx);
+                const newHeight = Math.max(minSize, startBoxHeight + dy);
+                
+                const maxWidth = startBoxX + startBoxWidth - margin;
+                const maxHeight = cropCanvas.height - startBoxY - margin;
+                
+                state.cropData.width = Math.min(newWidth, maxWidth);
+                state.cropData.height = Math.min(newHeight, maxHeight);
+                state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - state.cropData.width));
             }
             
             updateCropBox();
