@@ -909,14 +909,28 @@ const typeMapping = {
     'headshot': 'Transform this photo into a professional headshot.',
     'linkedin': 'Transform this photo into a professional LinkedIn-stype portrait.',
     'passport': 'Transform this photo into a Passport photo.',
-    'casual': 'Transform this photo into a casual portrait.'
+    'casual': 'Transform this photo into a casual headshot.'
 };
 
 const useCaseMapping = {
-    'id-docs': 'The overall style should be polished, modern, and perfectly suited for ID documents (Passport, Driver Licence, etc.).',
-    'branding': 'The overall style should be polished, modern, and perfectly suited for personal branding.',
-    'linkedin': 'The overall style should be polished, modern, and perfectly suited for LinkedIn profile pictures.',
-    'casual': 'The overall style should be casual, relaxed, and perfectly suited for social media profile pictures.'
+    'id-docs': "The result should be polished, modern that complies with standard passport requirements. \
+Neutral expression, eyes open, mouth closed, facing camera straight-on. \
+Even lighting with no shadows or glare. No hats, sunglasses, or heavy accessories. \
+Compose for passports: Natural skin tones, sharp focus, high resolution; \
+head and shoulders centered; full head visible with space around; 35x45 mm at 300 DPI.",
+
+    'branding': "The result should be polished, modern, and approachable, reflecting the subject's passion, purpose, and personality, and perfectly suited for personal branding.",
+    
+    'linkedin': "The result should be polished, modern, and approachable that reflects a strong professional image. \
+Capture the subject in flattering, natural light. \
+Emphasize confident, friendly expression and sharp focus on the eyes. \
+Compose for LinkedIn: chest-up framing, neutral tones, minimal distractions, \
+high resolution, suitable crop for a LinkedIn profile picture.",
+
+    'casual': "The result should be relaxed, informal, and approachable with a laid-back pose. \
+Capture the subject in soft, natural light. \
+Emphasize a friendly expression, warm tones, and shallow depth of field. \
+Compose for social media: waist-up framing, headroom for cropping, high-resolution, 1:1 or 4:5 aspect ratio."
 };
 
 const dressStyleMapping = {
@@ -925,7 +939,7 @@ const dressStyleMapping = {
     'grey-sweater': 'Dress the person in a dark grey crew-neck sweater over a light blue collared shirt.',
     'black-suit': 'Dress the person in a black, modern, slim-fit business suit.',
     'grey-suit': 'Dress the person in a grey, minimalist, elegant business suit with clean lines.',
-    'casual': 'Dress the person in a casual, relaxed outfit.'
+    'casual': 'Dress the person in a casual, relaxed, everyday attire.'
 };
 
 const backgroundMapping = {
