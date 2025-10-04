@@ -26,7 +26,7 @@ const state = {
         dressStyle: 'grey-sweater',
         background: 'soft-grey',
         retouching: 'false',
-        headTilting: 'true'
+        headTilting: 'false'
     },
     customPrompt: null,            // Custom prompt from textarea
     generatedImage: null,          // Single generated base64 image
@@ -907,7 +907,7 @@ async function handleGenerate() {
  */
 const typeMapping = {
     'passport': "Transform this photo into a polished, modern Passport photo \
-that complies with standard passport requirements. \
+that complies with standard passport requirements. No filters or retouching that alters appearance. \
 Neutral expression, eyes open, mouth closed, head and shoulders centered, facing camera straight-on. \
 Full head visible with space around; no hats, sunglasses, or heavy accessories. \
 Capture the subject in even lighting with no shadows or glare. \
@@ -916,21 +916,17 @@ high resolution, 35x45 mm at 300 DPI.",
     
     'headshot': "Transform this photo into a polished, modern, and approachable professional headshot \
 that reflects the subject's passion, purpose, and personality—ideal for personal branding. \
-Capture the subject in soft, flattering, natural light. \
 Emphasize a friendly, confident expression with sharp focus on the eyes. \
 Compose for personal branding: chest-up framing, neutral and professional tones, minimal distractions, \
 balanced composition, high-resolution.",
         
     'linkedin': "Transform this photo into a polished, modern, and approachable Linkedin-style portrait \
 that reflects a strong professional image. \
-Capture the subject in flattering, natural light. \
 Emphasize a friendly, confident expression with sharp focus on the eyes. \
-Compose for LinkedIn: chest-up framing, neutral and professional tones, minimal distractions, \
-high resolution, LinkedIn-ready cropping.",
+Compose for LinkedIn: neutral and professional tones, minimal distractions, high resolution.",
     
     'casual': "Transform this photo into a relaxed, informal, and approachable casual headshot with a laid-back pose. \
 that reflects the subject's personality and lifestyle. \
-Capture the subject in soft, natural light. \
 Emphasize a friendly expression, warm tones, and shallow depth of field. \
 Compose for social media: waist-up framing, headroom for cropping, \
 high-resolution, social media-ready cropping (1:1 or 4:5)."
@@ -961,7 +957,8 @@ const backgroundMapping = {
     'smoke-blue': 'Use a smoke blue background.',
     'modern-office': 'Use a subtly blurred, neutral, out-of-focus background set in a modern office.',
     'studio-backdrop': 'Use a subtly blurred, neutral, out-of-focus background set in a modern studio backdrop.',
-    'study-room': 'Use a subtly blurred, neutral, out-of-focus background set in a study room with bookshelves.'
+    'study-room': 'Use a subtly blurred, neutral, out-of-focus background set in a study room with bookshelves.',
+    'casual': 'Use a natural, casual, everyday background. Use a depth-of-field effect and ensure the person is the only subject in focus.'
 };
 
 const retouchingMapping = {
@@ -1244,7 +1241,7 @@ function handleReset() {
         dressStyle: 'grey-sweater',
         background: 'soft-grey',
         retouching: 'false',
-        headTilting: 'true'
+        headTilting: 'false'
     };
     
     // Reset file input
