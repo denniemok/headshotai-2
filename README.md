@@ -85,19 +85,21 @@ Passport, Driver License, Email Signature, Company Website, etc._
 | No complex setup | No data collection | Simple image cropper |
 | Generate in seconds	| Use trusted API | Customisable prompt |
 
-
+<br>
 
 - 🤖 **AI-Powered** - Google Gemini AI for professional results
 - ✂️ **Image Cropping** - Built-in cropper for perfect headshots
 - 🎨 **Multiple Styles** - Various attire, hair styles, shot sizes and backgrounds
 - 🔧 **Customisable Prompts** - Advanced prompt editor for fine-tuning
 
+<br>
+
 <div align="center">
 
 <table>
   <tr>
-    <td width=400px><img src="https://i.imgur.com/J977lRs.png"></td>
-    <td width=400px><img src="https://i.imgur.com/uGyPJDd.png"></td>
+    <td width=400px><img src="https://i.imgur.com/8KwGO43.png"></td>
+    <td width=400px><img src="https://i.imgur.com/BkiDZfY.jpg"></td>
   </tr>
 </table>
 
