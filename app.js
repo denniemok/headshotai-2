@@ -22,7 +22,7 @@ const state = {
     croppedImageMimeType: null,    // MIME type of cropped image
     parameters: {
         type: 'linkedin',
-        useCase: 'linkedin',
+        hairStyle: 'none',
         dressStyle: 'grey-sweater',
         background: 'soft-grey',
         retouching: 'false',
@@ -51,7 +51,7 @@ const hideIcon = document.getElementById('hideIcon');
 
 // Parameter selection elements
 const typeSelect = document.getElementById('typeSelect');
-const useCaseSelect = document.getElementById('useCaseSelect');
+const hairStyleSelect = document.getElementById('hairStyleSelect');
 const dressStyleSelect = document.getElementById('dressStyleSelect');
 const backgroundSelect = document.getElementById('backgroundSelect');
 const retouchingSelect = document.getElementById('retouchingSelect');
@@ -114,7 +114,7 @@ apiKeyInput.addEventListener('input', handleApiKeyInput);
 
 // Parameter selections
 typeSelect.addEventListener('change', handleParameterChange);
-useCaseSelect.addEventListener('change', handleParameterChange);
+hairStyleSelect.addEventListener('change', handleParameterChange);
 dressStyleSelect.addEventListener('change', handleParameterChange);
 backgroundSelect.addEventListener('change', handleParameterChange);
 retouchingSelect.addEventListener('change', handleParameterChange);
@@ -906,31 +906,42 @@ async function handleGenerate() {
  * Parameter mappings
  */
 const typeMapping = {
-    'headshot': 'Transform this photo into a professional headshot.',
-    'linkedin': 'Transform this photo into a professional LinkedIn-stype portrait.',
-    'passport': 'Transform this photo into a Passport photo.',
-    'casual': 'Transform this photo into a casual headshot.'
-};
-
-const useCaseMapping = {
-    'id-docs': "The result should be polished, modern that complies with standard passport requirements. \
-Neutral expression, eyes open, mouth closed, facing camera straight-on. \
-Even lighting with no shadows or glare. No hats, sunglasses, or heavy accessories. \
-Compose for passports: Natural skin tones, sharp focus, high resolution; \
-head and shoulders centered; full head visible with space around; 35x45 mm at 300 DPI.",
-
-    'branding': "The result should be polished, modern, and approachable, reflecting the subject's passion, purpose, and personality, and perfectly suited for personal branding.",
+    'passport': "Transform this photo into a polished, modern Passport photo \
+that complies with standard passport requirements. \
+Neutral expression, eyes open, mouth closed, head and shoulders centered, facing camera straight-on. \
+Full head visible with space around; no hats, sunglasses, or heavy accessories. \
+Capture the subject in even lighting with no shadows or glare. \
+Compose for passports: Natural skin tones, sharp focus; \
+high resolution, 35x45 mm at 300 DPI.",
     
-    'linkedin': "The result should be polished, modern, and approachable that reflects a strong professional image. \
+    'headshot': "Transform this photo into a polished, modern, and approachable professional headshot \
+that reflects the subject's passion, purpose, and personality—ideal for personal branding. \
+Capture the subject in soft, flattering, natural light. \
+Emphasize a friendly, confident expression with sharp focus on the eyes. \
+Compose for personal branding: chest-up framing, neutral and professional tones, minimal distractions, \
+balanced composition, high-resolution.",
+        
+    'linkedin': "Transform this photo into a polished, modern, and approachable Linkedin-style portrait \
+that reflects a strong professional image. \
 Capture the subject in flattering, natural light. \
-Emphasize confident, friendly expression and sharp focus on the eyes. \
-Compose for LinkedIn: chest-up framing, neutral tones, minimal distractions, \
-high resolution, suitable crop for a LinkedIn profile picture.",
-
-    'casual': "The result should be relaxed, informal, and approachable with a laid-back pose. \
+Emphasize a friendly, confident expression with sharp focus on the eyes. \
+Compose for LinkedIn: chest-up framing, neutral and professional tones, minimal distractions, \
+high resolution, LinkedIn-ready cropping.",
+    
+    'casual': "Transform this photo into a relaxed, informal, and approachable casual headshot with a laid-back pose. \
+that reflects the subject's personality and lifestyle. \
 Capture the subject in soft, natural light. \
 Emphasize a friendly expression, warm tones, and shallow depth of field. \
-Compose for social media: waist-up framing, headroom for cropping, high-resolution, 1:1 or 4:5 aspect ratio."
+Compose for social media: waist-up framing, headroom for cropping, \
+high-resolution, social media-ready cropping (1:1 or 4:5)."
+};
+
+const hairStyleMapping = {
+    'none': 'Keep the hair as it is.',
+    'professional': 'Style the hair in a clean, professional manner that looks polished and well-groomed. Ensure the hair is neat, styled appropriately for a business setting, and enhances the professional appearance.',
+    'casual': 'Style the hair in a natural, relaxed manner that looks effortless and approachable. Keep the styling simple and comfortable while maintaining a clean appearance.',
+    'formal': 'Style the hair in a formal, well-groomed manner suitable for formal occasions. Ensure the hair looks sophisticated, elegant, and perfectly styled for professional or formal settings.',
+    'modern': 'Style the hair in a contemporary, modern way that reflects current trends while maintaining professionalism. Create a stylish, up-to-date look that is both fashionable and appropriate.'
 };
 
 const dressStyleMapping = {
@@ -938,12 +949,14 @@ const dressStyleMapping = {
     'navy-dress': 'Dress the person in a sleeveless navy blue round neck dress made of lightly pleated fabric.',
     'grey-sweater': 'Dress the person in a dark grey crew-neck sweater over a light blue collared shirt.',
     'black-suit': 'Dress the person in a black, modern, slim-fit business suit.',
-    'grey-suit': 'Dress the person in a grey, minimalist, elegant business suit with clean lines.',
+    'grey-suit': 'Dress the person in a grey, elegant business suit with clean lines.',
     'casual': 'Dress the person in a casual, relaxed, everyday attire.'
 };
 
 const backgroundMapping = {
     'plain-white': 'Use a plain white background.',
+    'light-blue': 'Use a light blue background.',
+    'light-pink': 'Use a light pink background.',
     'soft-grey': 'Use a soft grey background.',
     'smoke-blue': 'Use a smoke blue background.',
     'modern-office': 'Use a subtly blurred, neutral, out-of-focus background set in a modern office.',
@@ -966,22 +979,25 @@ const headTiltingMapping = {
  * Combines user selections into a structured prompt for the AI
  */
 function generatePrompt(parameters) {
-    const { type, useCase, dressStyle, background, retouching, headTilting } = parameters;
+    const { type, hairStyle, dressStyle, background, retouching, headTilting } = parameters;
     
-    let prompt = `${typeMapping[type]} ${useCaseMapping[useCase]} Perform the following edits:\n`;
+    let prompt = `${typeMapping[type]} ${hairStyleMapping[hairStyle]} Perform the following edits:\n`;
     
-    // Retouching section
-    prompt += `1. **Retouching**: ${retouchingMapping[retouching]}\n`;
-    
+    // Background section
+    prompt += `1. **Background**: ${backgroundMapping[background]}\n`;
+    // Deprecated: Create a professional depth-of-field effect and ensure the person is the only subject in focus.
+
     // Attire section
     prompt += `2. **Attire**: ${dressStyleMapping[dressStyle]}\n`;
     
-    // Background section
-    prompt += `3. **Background**: ${backgroundMapping[background]}\n`;
-    // Deprecated: Create a professional depth-of-field effect and ensure the person is the only subject in focus.
+    // Hair section
+    prompt += `3. **Hair**: ${hairStyleMapping[hairStyle]}\n`;
     
     // Head tilting section
     prompt += `4. **Head Tilting**: ${headTiltingMapping[headTilting]}\n`;
+    
+    // Retouching section
+    prompt += `5. **Retouching**: ${retouchingMapping[retouching]}\n`;
     
     prompt += `The final output must be only the modified image.`;
     
@@ -1224,7 +1240,7 @@ function handleReset() {
     // Reset parameters to defaults
     state.parameters = {
         type: 'linkedin',
-        useCase: 'linkedin',
+        hairStyle: 'none',
         dressStyle: 'grey-sweater',
         background: 'soft-grey',
         retouching: 'false',
@@ -1236,7 +1252,7 @@ function handleReset() {
     
     // Reset parameter selections
     typeSelect.value = state.parameters.type;
-    useCaseSelect.value = state.parameters.useCase;
+    hairStyleSelect.value = state.parameters.hairStyle;
     dressStyleSelect.value = state.parameters.dressStyle;
     backgroundSelect.value = state.parameters.background;
     retouchingSelect.value = state.parameters.retouching;
@@ -1289,7 +1305,7 @@ function init() {
     
     // Set default parameter values
     typeSelect.value = state.parameters.type;
-    useCaseSelect.value = state.parameters.useCase;
+    hairStyleSelect.value = state.parameters.hairStyle;
     dressStyleSelect.value = state.parameters.dressStyle;
     backgroundSelect.value = state.parameters.background;
     retouchingSelect.value = state.parameters.retouching;
