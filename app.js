@@ -616,13 +616,24 @@ function initCropBoxDrag() {
             const handleClass = resizeHandle.className;
             
             if (handleClass.includes('se')) {
-                // Southeast - increase size (independent width/height)
+                // Southeast - increase size (independent width/height or square if Shift held)
                 const isMobile = window.innerWidth <= 768;
                 const minSize = isMobile ? 40 : 30;
                 const margin = isMobile ? 2 : 1;
                 
-                const newWidth = Math.max(minSize, startBoxWidth + dx);
-                const newHeight = Math.max(minSize, startBoxHeight + dy);
+                let newWidth, newHeight;
+                
+                if (e.shiftKey) {
+                    // Maintain 1:1 aspect ratio when Shift is held
+                    const delta = Math.max(dx, dy);
+                    const newSize = Math.max(minSize, Math.max(startBoxWidth, startBoxHeight) + delta);
+                    newWidth = newSize;
+                    newHeight = newSize;
+                } else {
+                    // Independent width/height adjustment
+                    newWidth = Math.max(minSize, startBoxWidth + dx);
+                    newHeight = Math.max(minSize, startBoxHeight + dy);
+                }
                 
                 const maxWidth = cropCanvas.width - startBoxX - margin;
                 const maxHeight = cropCanvas.height - startBoxY - margin;
@@ -630,13 +641,24 @@ function initCropBoxDrag() {
                 state.cropData.width = Math.min(newWidth, maxWidth);
                 state.cropData.height = Math.min(newHeight, maxHeight);
             } else if (handleClass.includes('nw')) {
-                // Northwest - decrease size and move position (independent width/height)
+                // Northwest - decrease size and move position (independent width/height or square if Shift held)
                 const isMobile = window.innerWidth <= 768;
                 const minSize = isMobile ? 40 : 30;
                 const margin = isMobile ? 2 : 1;
                 
-                const newWidth = Math.max(minSize, startBoxWidth - dx);
-                const newHeight = Math.max(minSize, startBoxHeight - dy);
+                let newWidth, newHeight;
+                
+                if (e.shiftKey) {
+                    // Maintain 1:1 aspect ratio when Shift is held
+                    const delta = Math.min(dx, dy);
+                    const newSize = Math.max(minSize, Math.max(startBoxWidth, startBoxHeight) - delta);
+                    newWidth = newSize;
+                    newHeight = newSize;
+                } else {
+                    // Independent width/height adjustment
+                    newWidth = Math.max(minSize, startBoxWidth - dx);
+                    newHeight = Math.max(minSize, startBoxHeight - dy);
+                }
                 
                 // Constrain by available space
                 const maxWidth = startBoxX + startBoxWidth - margin;
@@ -647,13 +669,26 @@ function initCropBoxDrag() {
                 state.cropData.startX = Math.max(margin, startBoxX + (startBoxWidth - state.cropData.width));
                 state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - state.cropData.height));
             } else if (handleClass.includes('ne')) {
-                // Northeast - adjust width and height independently
+                // Northeast - adjust width and height independently (or square if Shift held)
                 const isMobile = window.innerWidth <= 768;
                 const minSize = isMobile ? 40 : 30;
                 const margin = isMobile ? 2 : 1;
                 
-                const newWidth = Math.max(minSize, startBoxWidth + dx);
-                const newHeight = Math.max(minSize, startBoxHeight - dy);
+                let newWidth, newHeight;
+                
+                if (e.shiftKey) {
+                    // Maintain 1:1 aspect ratio when Shift is held
+                    const deltaX = dx;
+                    const deltaY = -dy;
+                    const delta = Math.max(deltaX, deltaY);
+                    const newSize = Math.max(minSize, Math.max(startBoxWidth, startBoxHeight) + delta);
+                    newWidth = newSize;
+                    newHeight = newSize;
+                } else {
+                    // Independent width/height adjustment
+                    newWidth = Math.max(minSize, startBoxWidth + dx);
+                    newHeight = Math.max(minSize, startBoxHeight - dy);
+                }
                 
                 const maxWidth = cropCanvas.width - startBoxX - margin;
                 const maxHeight = startBoxY + startBoxHeight - margin;
@@ -662,13 +697,26 @@ function initCropBoxDrag() {
                 state.cropData.height = Math.min(newHeight, maxHeight);
                 state.cropData.startY = Math.max(margin, startBoxY + (startBoxHeight - state.cropData.height));
             } else if (handleClass.includes('sw')) {
-                // Southwest - adjust width and height independently
+                // Southwest - adjust width and height independently (or square if Shift held)
                 const isMobile = window.innerWidth <= 768;
                 const minSize = isMobile ? 40 : 30;
                 const margin = isMobile ? 2 : 1;
                 
-                const newWidth = Math.max(minSize, startBoxWidth - dx);
-                const newHeight = Math.max(minSize, startBoxHeight + dy);
+                let newWidth, newHeight;
+                
+                if (e.shiftKey) {
+                    // Maintain 1:1 aspect ratio when Shift is held
+                    const deltaX = -dx;
+                    const deltaY = dy;
+                    const delta = Math.max(deltaX, deltaY);
+                    const newSize = Math.max(minSize, Math.max(startBoxWidth, startBoxHeight) + delta);
+                    newWidth = newSize;
+                    newHeight = newSize;
+                } else {
+                    // Independent width/height adjustment
+                    newWidth = Math.max(minSize, startBoxWidth - dx);
+                    newHeight = Math.max(minSize, startBoxHeight + dy);
+                }
                 
                 const maxWidth = startBoxX + startBoxWidth - margin;
                 const maxHeight = cropCanvas.height - startBoxY - margin;
