@@ -21,36 +21,53 @@ Passport, Driver License, Email Signature, Company Website, etc._
 <br>
 
 <table>
-  <tr>
-    <td width=200px><img src="https://i.imgur.com/OqORmOp.png"></td>
-    <td width=200px><img src="https://i.imgur.com/onjSxnb.png"></td>
-    <td width=200px><img src="https://i.imgur.com/LQXnfOI.png"></td>
-    <td width=200px><img src="https://i.imgur.com/ENIOWHe.png"></td>
-  </tr>
-  <tr align=center>
-    <td>Original</td>
-    <td>Generated</td>
-    <td>Generated</td>
-    <td>Generated</td>
-  </tr>
+<tr>
+<td width=100px><img src="https://i.imgur.com/OqORmOp.png"></td>
+<td width=100px><img src="https://i.imgur.com/RmdS2Ee.png"></td>
+<td width=100px><img src="https://i.imgur.com/VN4PbTG.png"></td>
+<td width=100px><img src="https://i.imgur.com/uXQF55t.png"></td>
+<td width=100px><img src="https://i.imgur.com/H5ug1tz.png"></td>
+<td width=100px><img src="https://i.imgur.com/Z7Iq8Bk.png"></td>
+<td width=100px><img src="https://i.imgur.com/RlSxTh8.png"></td>
+</tr>
+<tr align=center>
+<td>
+  
+[Original](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-male/)
+</td>
+<td>LinkedIn</td>
+<td>LinkedIn</td>
+<td>Professional</td>
+<td>Casual</td>
+<td>Casual</td>
+<td>Passport</td>
+</tr>
 </table>
 
 <table>
-  <tr>
-    <td width=200px><img src="https://i.imgur.com/RBXBMPu.png"></td>
-    <td width=200px><img src="https://i.imgur.com/9F4BToK.png"></td>
-    <td width=200px><img src="https://i.imgur.com/KxuEgKe.png"></td>
-    <td width=200px><img src="https://i.imgur.com/zHrc5Dc.png"></td>
-  </tr>
-  <tr align=center>
-    <td>Original</td>
-    <td>Generated</td>
-    <td>Generated</td>
-    <td>Generated</td>
-  </tr>
-</table>
+<tr>
+<td width=100px><img src="https://i.imgur.com/RBXBMPu.png"></td>
+<td width=100px><img src="https://i.imgur.com/7mfyXZi.png"></td>
+<td width=100px><img src="https://i.imgur.com/fAqHWYu.png"></td>
+<td width=100px><img src="https://i.imgur.com/bQNU5Aw.png"></td>
+<td width=100px><img src="https://i.imgur.com/8SYaECt.png"></td>
+<td width=100px><img src="https://i.imgur.com/XxTEGpo.png"></td>
+<td width=100px><img src="https://i.imgur.com/RkTxQaF.png"></td>
+</tr>
+<tr align=center>
+<td>
+  
+[Original](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-female/)    
 
-AI Models from [WhatmoreAI](https://www.whatmore.ai/ai-fashion-models/photos/asian-model-female/)
+</td>
+<td>LinkedIn</td>
+<td>LinkedIn</td>
+<td>Professional</td>
+<td>Casual</td>
+<td>Casual</td>
+<td>Passport</td>
+</tr>
+</table>
 
 </div>
 
@@ -217,6 +234,7 @@ This project is released under the [MIT License](LICENSE).
 
 
 </div>
+
 
 
 
