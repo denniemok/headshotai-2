@@ -97,10 +97,10 @@
                                 Type
                             </label>
                             <select id="typeSelect" class="parameter-select">
-                                <option value="headshot">Professional Headshot (Personal Branding, Portfolio)</option>
-                                <option value="linkedin">LinkedIn-style Portrait (Professional Networking)</option>
-                                <option value="passport">Passport Photo (Passports, ID Cards, Driver's Licenses)</option>
-                                <option value="casual">Casual Portrait (Social Media)</option>
+                                <option value="headshot">Professional Headshot</option>
+                                <option value="linkedin">LinkedIn-style Portrait</option>
+                                <option value="passport">Passport Photo</option>
+                                <option value="casual">Casual Portrait</option>
                             </select>
                         </div>
 
@@ -139,6 +139,8 @@
                                 Dress Style
                             </label>
                             <select id="dressStyleSelect" class="parameter-select">
+                                <option value="none">Keep as it is</option>
+                                
                                 <optgroup label="General Styles">
                                     <option value="grey-sweater">Dark Grey Crew-Neck Sweater</option>
                                     <option value="black-suit">Black Slim-Fit Business Suit</option>
@@ -198,6 +200,39 @@
                                     <option value="female-4">Sophisticated Side Bob</option>
                                     <option value="female-5">Half-Up with Twist / Braid</option>
                                 </optgroup>
+                            </select>
+                        </div>
+
+                        <!-- Shot Size Selection -->
+                        <div class="parameter-group">
+                            <label for="shotSizeSelect" class="parameter-label">
+                                <svg class="icon-small" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Shot Size
+                            </label>
+                            <select id="shotSizeSelect" class="parameter-select">
+                                <option value="closeup">Close-up (Head & Shoulders)</option>
+                                <option value="medium-closeup">Medium Close-up (Head & Upper Chest)</option>
+                                <option value="medium-shot">Medium Shot (Waist Up)</option>
+                                <option value="cowboy-shot">Cowboy Shot (Mid-thigh Up)</option>
+                                <option value="medium-full-shot">Medium Full Shot (Knees Up)</option>
+                                <option value="full-shot">Full Shot (Head to Toe)</option>
+                            </select>
+                        </div>
+
+                        <!-- Depth of Field Toggle -->
+                        <div class="parameter-group">
+                            <label for="depthOfFieldSelect" class="parameter-label">
+                                <svg class="icon-small" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                Depth of Field
+                            </label>
+                            <select id="depthOfFieldSelect" class="parameter-select">
+                                <option value="true">Enable (Blur background)</option>
+                                <option value="false">Disable (Keep all in focus)</option>
                             </select>
                         </div>
 

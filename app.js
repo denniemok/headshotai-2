@@ -23,10 +23,12 @@ const state = {
     parameters: {
         type: 'linkedin',
         hairStyle: 'none',
-        dressStyle: 'grey-sweater',
-        background: 'soft-grey',
+        dressStyle: 'none',
+        background: 'smoke-blue',
         retouching: 'false',
-        headTilting: 'false'
+        headTilting: 'false',
+        shotSize: 'medium-closeup',
+        depthOfField: 'false'
     },
     customPrompt: null,            // Custom prompt from textarea
     generatedImage: null,          // Single generated base64 image
@@ -56,6 +58,8 @@ const dressStyleSelect = document.getElementById('dressStyleSelect');
 const backgroundSelect = document.getElementById('backgroundSelect');
 const retouchingSelect = document.getElementById('retouchingSelect');
 const headTiltingSelect = document.getElementById('headTiltingSelect');
+const shotSizeSelect = document.getElementById('shotSizeSelect');
+const depthOfFieldSelect = document.getElementById('depthOfFieldSelect');
 
 // Test connection elements
 const testConnectionBtn = document.getElementById('testConnectionBtn');
@@ -119,6 +123,8 @@ dressStyleSelect.addEventListener('change', handleParameterChange);
 backgroundSelect.addEventListener('change', handleParameterChange);
 retouchingSelect.addEventListener('change', handleParameterChange);
 headTiltingSelect.addEventListener('change', handleParameterChange);
+shotSizeSelect.addEventListener('change', handleParameterChange);
+depthOfFieldSelect.addEventListener('change', handleParameterChange);
 
 // Test connection
 testConnectionBtn.addEventListener('click', handleTestConnection);
@@ -920,13 +926,12 @@ that complies with standard passport requirements. No filters or retouching that
 Neutral expression, eyes open, mouth closed, head and shoulders centered, facing camera straight-on. \
 Full head visible with space around; no hats, sunglasses, or heavy accessories. \
 Capture the subject in even lighting with no shadows or glare. \
-Compose for passports: Natural skin tones, sharp focus; \
-high resolution, 35x45 mm at 300 DPI.",
+Compose for passports: Natural skin tones, sharp focus, high resolution.",
     
     'headshot': "Transform this photo into a polished, modern, and approachable professional headshot \
 that reflects the subject's passion, purpose, and personality—ideal for personal branding. \
 Emphasize a friendly, confident expression with sharp focus on the eyes. \
-Compose for personal branding: chest-up framing, neutral and professional tones, minimal distractions, \
+Compose for personal branding: neutral and professional tones, minimal distractions, \
 balanced composition, high-resolution.",
         
     'linkedin': "Transform this photo into a polished, modern, and approachable Linkedin-style portrait \
@@ -937,12 +942,11 @@ Compose for LinkedIn: neutral and professional tones, minimal distractions, high
     'casual': "Transform this photo into a relaxed, informal, and approachable casual headshot with a laid-back pose. \
 that reflects the subject's personality and lifestyle. \
 Emphasize a friendly expression, warm tones, and shallow depth of field. \
-Compose for social media: waist-up framing, headroom for cropping, \
-high-resolution, social media-ready cropping (1:1 or 4:5)."
+Compose for social media: headroom for cropping, high-resolution."
 };
 
 const hairStyleMapping = {
-    'none': 'Keep the hair as it is.',
+    'none': 'Keep as it is.',
     'professional': 'Style the hair in a clean, professional manner that looks polished and well-groomed. Ensure the hair is neat, styled appropriately for a business setting, and enhances the professional appearance.',
     'casual': 'Style the hair in a natural, relaxed manner that looks effortless and approachable. Keep the styling simple and comfortable while maintaining a clean appearance.',
     'formal': 'Style the hair in a formal, well-groomed manner suitable for formal occasions. Ensure the hair looks sophisticated, elegant, and perfectly styled for professional or formal settings.',
@@ -960,6 +964,7 @@ const hairStyleMapping = {
 };
 
 const dressStyleMapping = {
+    'none': 'Keep as it is.',
     'grey-sweater': 'Dress the person in a dark grey crew-neck sweater over a light blue collared shirt.',
     'black-suit': 'Dress the person in a black, modern, slim-fit business suit.',
     'grey-suit': 'Dress the person in a grey, elegant business suit with clean lines.',
@@ -983,10 +988,10 @@ const backgroundMapping = {
     'light-pink': 'Use a light pink background.',
     'soft-grey': 'Use a soft grey background.',
     'smoke-blue': 'Use a smoke blue background.',
-    'modern-office': 'Use a subtly blurred, neutral, out-of-focus background set in a modern office.',
-    'studio-backdrop': 'Use a subtly blurred, neutral, out-of-focus background set in a modern studio backdrop.',
-    'study-room': 'Use a subtly blurred, neutral, out-of-focus background set in a study room with bookshelves.',
-    'casual': 'Use a natural, casual, everyday background. Use a depth-of-field effect and ensure the person is the only subject in focus.'
+    'modern-office': 'Use a modern office background.',
+    'studio-backdrop': 'Use a modern studio backdrop background.',
+    'study-room': 'Use a study room with bookshelves background.',
+    'casual': 'Use a natural, casual, everyday background.'
 };
 
 const retouchingMapping = {
@@ -999,18 +1004,31 @@ const headTiltingMapping = {
     'false': 'Keep the head straight and upright for a formal, professional appearance.'
 };
 
+const shotSizeMapping = {
+    'closeup': 'Frame the shot as a close-up, showing the head and shoulders with the face filling most of the frame.',
+    'medium-closeup': 'Frame the shot as a medium close-up, showing the head and upper chest.',
+    'medium-shot': 'Frame the shot as a medium shot, showing the person from the waist up.',
+    'cowboy-shot': 'Frame the shot as a cowboy shot, showing the person from mid-thigh up.',
+    'medium-full-shot': 'Frame the shot as a medium full shot, showing the person from the knees up.',
+    'full-shot': 'Frame the shot as a full shot, showing the entire person from head to toe.'
+};
+
+const depthOfFieldMapping = {
+    'true': 'Use a depth-of-field effect and ensure the person is the only subject in focus.',
+    'false': 'Keep the entire image in focus without depth-of-field effects.'
+};
+
 /**
  * Generate the AI prompt for image transformation
  * Combines user selections into a structured prompt for the AI
  */
 function generatePrompt(parameters) {
-    const { type, hairStyle, dressStyle, background, retouching, headTilting } = parameters;
+    const { type, hairStyle, dressStyle, background, retouching, headTilting, shotSize, depthOfField } = parameters;
     
-    let prompt = `${typeMapping[type]} ${hairStyleMapping[hairStyle]} Perform the following edits:\n`;
+    let prompt = `${typeMapping[type]} Perform the following edits:\n`;
     
     // Background section
-    prompt += `1. **Background**: ${backgroundMapping[background]}\n`;
-    // Deprecated: Create a professional depth-of-field effect and ensure the person is the only subject in focus.
+    prompt += `1. **Background**: ${backgroundMapping[background]} ${depthOfFieldMapping[depthOfField]}\n`;
 
     // Attire section
     prompt += `2. **Attire**: ${dressStyleMapping[dressStyle]}\n`;
@@ -1018,11 +1036,14 @@ function generatePrompt(parameters) {
     // Hair section
     prompt += `3. **Hair**: ${hairStyleMapping[hairStyle]}\n`;
     
+    // Shot size section
+    prompt += `4. **Shot Size**: Strictly follow the shot size instructions. ${shotSizeMapping[shotSize]}\n`;
+    
     // Head tilting section
-    prompt += `4. **Head Tilting**: ${headTiltingMapping[headTilting]}\n`;
+    prompt += `5. **Head Tilting**: ${headTiltingMapping[headTilting]}\n`;
     
     // Retouching section
-    prompt += `5. **Retouching**: ${retouchingMapping[retouching]}\n`;
+    prompt += `6. **Retouching**: ${retouchingMapping[retouching]}\n`;
     
     prompt += `The final output must be only the modified image.`;
     
@@ -1266,10 +1287,12 @@ function handleReset() {
     state.parameters = {
         type: 'linkedin',
         hairStyle: 'none',
-        dressStyle: 'grey-sweater',
-        background: 'soft-grey',
+        dressStyle: 'none',
+        background: 'smoke-blue',
         retouching: 'false',
-        headTilting: 'false'
+        headTilting: 'false',
+        shotSize: 'medium-closeup',
+        depthOfField: 'false'
     };
     
     // Reset file input
@@ -1282,6 +1305,8 @@ function handleReset() {
     backgroundSelect.value = state.parameters.background;
     retouchingSelect.value = state.parameters.retouching;
     headTiltingSelect.value = state.parameters.headTilting;
+    shotSizeSelect.value = state.parameters.shotSize;
+    depthOfFieldSelect.value = state.parameters.depthOfField;
     
     // Reset upload area
     uploadPlaceholder.classList.remove('hidden');
@@ -1335,6 +1360,8 @@ function init() {
     backgroundSelect.value = state.parameters.background;
     retouchingSelect.value = state.parameters.retouching;
     headTiltingSelect.value = state.parameters.headTilting;
+    shotSizeSelect.value = state.parameters.shotSize;
+    depthOfFieldSelect.value = state.parameters.depthOfField;
     
     // Initialize prompt editor with default prompt
     updatePromptFromParameters();
