@@ -29,7 +29,7 @@ Passport, Driver License, Email Signature, Company Website, etc._
 <td width=120px><img src="https://i.imgur.com/RmdS2Ee.png"></td>
 <td width=120px><img src="https://i.imgur.com/VN4PbTG.png"></td>
 <td width=120px><img src="https://i.imgur.com/uXQF55t.png"></td>
-<td width=120px><img src="https://i.imgur.com/H5ug1tz.png"></td>
+<td width=120px><img src="https://i.imgur.com/Vts8USC.png"></td>
 <td width=120px><img src="https://i.imgur.com/Z7Iq8Bk.png"></td>
 <td width=120px><img src="https://i.imgur.com/RlSxTh8.png"></td>
 </tr>
@@ -242,6 +242,7 @@ This project is released under the [MIT License](LICENSE).
 
 
 </div>
+
 
 
 
